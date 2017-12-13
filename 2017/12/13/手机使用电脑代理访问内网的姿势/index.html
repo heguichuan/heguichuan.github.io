@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>手机使用电脑代理访问内网的姿势（实现手机修改host文件的效果） | Go Hiking</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="手机使用电脑代理访问内网的姿势（实现手机修改host文件的效果）问题起源 passport的h5登录页面出现了一次mate9手机浏览器兼容问题，一般情况下手机无法修改host，以前没找到使用mate9在测试环境访问的方法，问题一直拖了很久没解决，直到某一天从国池哥哥那里知道了使用电脑代理的方式可以访问内网的网站，实现修改手机host文件的效果。  参考链接：使用fiddler4做代理调试手机页面">
+<meta property="og:type" content="article">
+<meta property="og:title" content="手机使用电脑代理访问内网的姿势（实现手机修改host文件的效果）">
+<meta property="og:url" content="http://yoursite.com/2017/12/13/手机使用电脑代理访问内网的姿势/index.html">
+<meta property="og:site_name" content="Go Hiking">
+<meta property="og:description" content="手机使用电脑代理访问内网的姿势（实现手机修改host文件的效果）问题起源 passport的h5登录页面出现了一次mate9手机浏览器兼容问题，一般情况下手机无法修改host，以前没找到使用mate9在测试环境访问的方法，问题一直拖了很久没解决，直到某一天从国池哥哥那里知道了使用电脑代理的方式可以访问内网的网站，实现修改手机host文件的效果。  参考链接：使用fiddler4做代理调试手机页面">
+<meta property="og:updated_time" content="2017-12-13T08:36:38.918Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="手机使用电脑代理访问内网的姿势（实现手机修改host文件的效果）">
+<meta name="twitter:description" content="手机使用电脑代理访问内网的姿势（实现手机修改host文件的效果）问题起源 passport的h5登录页面出现了一次mate9手机浏览器兼容问题，一般情况下手机无法修改host，以前没找到使用mate9在测试环境访问的方法，问题一直拖了很久没解决，直到某一天从国池哥哥那里知道了使用电脑代理的方式可以访问内网的网站，实现修改手机host文件的效果。  参考链接：使用fiddler4做代理调试手机页面">
+  
+    <link rel="alternate" href="/atom.xml" title="Go Hiking" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Go Hiking</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-手机使用电脑代理访问内网的姿势" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/12/13/手机使用电脑代理访问内网的姿势/" class="article-date">
+  <time datetime="2017-12-13T08:03:53.198Z" itemprop="datePublished">2017-12-13</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      手机使用电脑代理访问内网的姿势（实现手机修改host文件的效果）
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="手机使用电脑代理访问内网的姿势（实现手机修改host文件的效果）"><a href="#手机使用电脑代理访问内网的姿势（实现手机修改host文件的效果）" class="headerlink" title="手机使用电脑代理访问内网的姿势（实现手机修改host文件的效果）"></a>手机使用电脑代理访问内网的姿势（实现手机修改host文件的效果）</h1><h2 id="问题起源"><a href="#问题起源" class="headerlink" title="问题起源"></a>问题起源</h2><blockquote>
+<p>passport的h5登录页面出现了一次mate9手机浏览器兼容问题，一般情况下手机无法修改host，以前没找到使用mate9在测试环境访问的方法，问题一直拖了很久没解决，直到某一天从国池哥哥那里知道了使用电脑代理的方式可以访问内网的网站，实现修改手机host文件的效果。</p>
+</blockquote>
+<p><strong>参考链接：</strong><a href="https://www.cnblogs.com/biglion/p/5977137.html" target="_blank" rel="external">使用fiddler4做代理调试手机页面</a></p>
+<h2 id="具体步骤"><a href="#具体步骤" class="headerlink" title="具体步骤"></a>具体步骤</h2><ol>
+<li>需要手机通过wifi链接电脑，如果是台式电脑可以买一个外接网卡（最便宜的就可以了）。</li>
+<li>手机链接wifi后，需要给手机wifi配置代理，添加<code>主机名(就是wifi中的路由器栏的地址)</code>和<code>端口(fiddler默认监听的端口，默认8888)</code>。</li>
+<li>下载安装<a href="https://www.telerik.com/download/fiddler" target="_blank" rel="external">fiddler4</a>，具体配置见<a href="https://www.cnblogs.com/biglion/p/5977137.html" target="_blank" rel="external">参考链接</a>。</li>
+<li>电脑修改host，手机访问域名体验效果。</li>
+</ol>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2017/12/13/手机使用电脑代理访问内网的姿势/" data-id="cjb4tbpbm0001t0hmvoak3ple" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2017/12/13/移动端页面开发笔记/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">移动端页面开发学习笔记</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/12/">December 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/11/">November 2017</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2017/12/13/手机使用电脑代理访问内网的姿势/">手机使用电脑代理访问内网的姿势（实现手机修改host文件的效果）</a>
+          </li>
+        
+          <li>
+            <a href="/2017/12/13/移动端页面开发笔记/">移动端页面开发学习笔记</a>
+          </li>
+        
+          <li>
+            <a href="/2017/12/12/JS表单序列号与反序列化/">JS表单序列号与反序列化</a>
+          </li>
+        
+          <li>
+            <a href="/2017/11/10/hello-world/">Hello World</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2017 heguichuan<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+  </div>
+</body>
+</html>

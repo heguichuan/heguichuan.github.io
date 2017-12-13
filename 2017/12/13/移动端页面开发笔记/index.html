@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>移动端页面开发学习笔记 | Go Hiking</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="移动端页面开发学习笔记基本思路参考链接：再聊移动端页面的适配 总结出来就是：  使用vw来实现页面的适配，并且通过PostCSS的插件postcss-px-to-viewport把px转换成vw。这样我们可以直接使用px单位，插件帮我们自动转换。 为了跟好的实现长宽比，特别是针对于img/vedio/iframe元素，通过PostCSS插件postcss-aspect-ratio-mini来实现，">
+<meta property="og:type" content="article">
+<meta property="og:title" content="移动端页面开发学习笔记">
+<meta property="og:url" content="http://yoursite.com/2017/12/13/移动端页面开发笔记/index.html">
+<meta property="og:site_name" content="Go Hiking">
+<meta property="og:description" content="移动端页面开发学习笔记基本思路参考链接：再聊移动端页面的适配 总结出来就是：  使用vw来实现页面的适配，并且通过PostCSS的插件postcss-px-to-viewport把px转换成vw。这样我们可以直接使用px单位，插件帮我们自动转换。 为了跟好的实现长宽比，特别是针对于img/vedio/iframe元素，通过PostCSS插件postcss-aspect-ratio-mini来实现，">
+<meta property="og:updated_time" content="2017-12-13T08:36:02.386Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="移动端页面开发学习笔记">
+<meta name="twitter:description" content="移动端页面开发学习笔记基本思路参考链接：再聊移动端页面的适配 总结出来就是：  使用vw来实现页面的适配，并且通过PostCSS的插件postcss-px-to-viewport把px转换成vw。这样我们可以直接使用px单位，插件帮我们自动转换。 为了跟好的实现长宽比，特别是针对于img/vedio/iframe元素，通过PostCSS插件postcss-aspect-ratio-mini来实现，">
+  
+    <link rel="alternate" href="/atom.xml" title="Go Hiking" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Go Hiking</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-移动端页面开发笔记" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/12/13/移动端页面开发笔记/" class="article-date">
+  <time datetime="2017-12-13T07:04:34.850Z" itemprop="datePublished">2017-12-13</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      移动端页面开发学习笔记
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="移动端页面开发学习笔记"><a href="#移动端页面开发学习笔记" class="headerlink" title="移动端页面开发学习笔记"></a>移动端页面开发学习笔记</h1><h2 id="基本思路"><a href="#基本思路" class="headerlink" title="基本思路"></a>基本思路</h2><p><strong>参考链接</strong>：<a href="https://www.w3cplus.com/css/vw-for-layout.html" target="_blank" rel="external">再聊移动端页面的适配</a></p>
+<p><em><em>总结出来就是：</em></em></p>
+<ul>
+<li>使用<code>vw</code>来实现页面的适配，并且通过<code>PostCSS</code>的插件<a href="https://github.com/evrone/postcss-px-to-viewport" target="_blank" rel="external">postcss-px-to-viewport</a>把<code>px</code>转换成<code>vw</code>。这样我们可以直接使用<code>px</code>单位，插件帮我们自动转换。</li>
+<li>为了跟好的实现长宽比，特别是针对于<code>img</code>/<code>vedio</code>/<code>iframe</code>元素，通过PostCSS插件<a href="https://github.com/yisibl/postcss-aspect-ratio-mini" target="_blank" rel="external">postcss-aspect-ratio-mini</a>来实现，在实际使用中，只需要把对应的宽高写进去即可。</li>
+<li>为了解决<code>1px</code>问题,使用<code>PostCSS</code>插件<a href="https://github.com/jonathantneal/postcss-write-svg" target="_blank" rel="external">postcss-write-svg</a>,自动生成<code>border-image</code>或者<code>background-image</code>的图片。</li>
+</ul>
+<p><em><em>可以使用vw的地方</em></em>：</p>
+<ul>
+<li>容器适配</li>
+<li>文本适配</li>
+<li>大于<code>1px</code>的边框、圆角、阴影</li>
+<li>内距和外距</li>
+</ul>
+<h2 id="插件的使用"><a href="#插件的使用" class="headerlink" title="插件的使用"></a>插件的使用</h2><h3 id="postcss-px-to-viewport"><a href="#postcss-px-to-viewport" class="headerlink" title="postcss-px-to-viewport"></a>postcss-px-to-viewport</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yarn add postcss-px-to-viewport</span><br></pre></td></tr></table></figure>
+<p>配置如下：<code>webpack</code>+<code>vue</code>(<code>vue-cli</code>)</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">postcss: [</span><br><span class="line">    <span class="built_in">require</span>(<span class="string">'postcss-px-to-viewport'</span>)(&#123;</span><br><span class="line">        viewportWidth: <span class="number">375</span>, <span class="comment">//px 可以直接设置为设计稿的宽度，然后开发中就可以直接使用px做单位。</span></span><br><span class="line">        viewportHeight: <span class="number">667</span>, <span class="comment">//高</span></span><br><span class="line">        unitPrecision: <span class="number">5</span>, <span class="comment">//精度</span></span><br><span class="line">        viewportUnit: <span class="string">'vw'</span>,</span><br><span class="line">        selectorBlackList: [],</span><br><span class="line">        minPixelValue: <span class="number">1</span>,</span><br><span class="line">        mediaQuery: <span class="literal">false</span></span><br><span class="line">    &#125;)</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2017/12/13/移动端页面开发笔记/" data-id="cjb4tbpbp0002t0hm04p0lge9" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2017/12/13/手机使用电脑代理访问内网的姿势/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          手机使用电脑代理访问内网的姿势（实现手机修改host文件的效果）
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2017/12/12/JS表单序列号与反序列化/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">JS表单序列号与反序列化</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/12/">December 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/11/">November 2017</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2017/12/13/手机使用电脑代理访问内网的姿势/">手机使用电脑代理访问内网的姿势（实现手机修改host文件的效果）</a>
+          </li>
+        
+          <li>
+            <a href="/2017/12/13/移动端页面开发笔记/">移动端页面开发学习笔记</a>
+          </li>
+        
+          <li>
+            <a href="/2017/12/12/JS表单序列号与反序列化/">JS表单序列号与反序列化</a>
+          </li>
+        
+          <li>
+            <a href="/2017/11/10/hello-world/">Hello World</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2017 heguichuan<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+  </div>
+</body>
+</html>
