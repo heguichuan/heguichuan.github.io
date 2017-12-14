@@ -48,9 +48,9 @@
       </nav>
       <nav id="sub-nav">
         
-          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="Flux RSS"></a>
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
         
-        <a id="nav-search-btn" class="nav-icon" title="Rechercher"></a>
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
       </nav>
       <div id="search-form-wrap">
         <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://heguichuan.github.io"></form>
@@ -60,6 +60,45 @@
 </header>
       <div class="outer">
         <section id="main">
+  
+    <article id="post-nvm学习笔记" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/12/14/nvm学习笔记/" class="article-date">
+  <time datetime="2017-12-14T06:12:42.355Z" itemprop="datePublished">2017-12-14</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/12/14/nvm学习笔记/">nvm学习笔记</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="nodejs版本管理工具——nvm学习笔记"><a href="#nodejs版本管理工具——nvm学习笔记" class="headerlink" title="nodejs版本管理工具——nvm学习笔记"></a>nodejs版本管理工具——nvm学习笔记</h1><h2 id="windows版本"><a href="#windows版本" class="headerlink" title="windows版本"></a>windows版本</h2><p><em><em>下载安装：</em></em><a href="https://github.com/coreybutler/nvm-windows" target="_blank" rel="noopener">地址</a>，windows下直接安装。</p>
+<p><em><em>使用：</em></em></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#常用命令</span></span><br><span class="line">nvm list <span class="comment">#列出已安装版本</span></span><br><span class="line">nvm list available <span class="comment">#列出可安装版本</span></span><br><span class="line">nvm install &lt;version&gt; <span class="comment">#安装指定版本号</span></span><br><span class="line">nvm uninstall &lt;version&gt; <span class="comment">#安装指定版本号</span></span><br><span class="line">nvm use &lt;version&gt; <span class="comment">#使用指定版本号</span></span><br><span class="line">node -v <span class="comment">#查看当前node版本号</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#帮助</span></span><br><span class="line">E:\360Downloads\nvm-setup&gt;nvm</span><br><span class="line"></span><br><span class="line">Running version 1.1.5.</span><br><span class="line"></span><br><span class="line">Usage:</span><br><span class="line"></span><br><span class="line">  nvm arch                     : Show <span class="keyword">if</span> node is running <span class="keyword">in</span> 32 or 64 bit mode.</span><br><span class="line">  nvm install &lt;version&gt; [arch] : The version can be a node.js version or <span class="string">"latest</span></span><br><span class="line"><span class="string">"</span> <span class="keyword">for</span> the latest stable version.</span><br><span class="line">                                 Optionally specify whether to install the 32 or</span><br><span class="line"> 64 bit version (defaults to system arch).</span><br><span class="line">                                 Set [arch] to <span class="string">"all"</span> to install 32 AND 64 bit ve</span><br><span class="line">rsions.</span><br><span class="line">                                 Add --insecure to the end of this <span class="built_in">command</span> to by</span><br><span class="line">pass SSL validation of the remote download server.</span><br><span class="line">  nvm list [available]         : List the node.js installations. Type <span class="string">"available</span></span><br><span class="line"><span class="string">"</span> at the end to see what can be installed. Aliased as ls.</span><br><span class="line">  nvm on                       : Enable node.js version management.</span><br><span class="line">  nvm off                      : Disable node.js version management.</span><br><span class="line">  nvm proxy [url]              : Set a proxy to use <span class="keyword">for</span> downloads. Leave [url] b</span><br><span class="line">lank to see the current proxy.</span><br><span class="line">                                 Set [url] to <span class="string">"none"</span> to remove the proxy.</span><br><span class="line">  nvm node_mirror [url]        : Set the node mirror. Defaults to https://nodejs</span><br><span class="line">.org/dist/. Leave [url] blank to use default url.</span><br><span class="line">  nvm npm_mirror [url]         : Set the npm mirror. Defaults to https://github.</span><br><span class="line">com/npm/npm/archive/. Leave [url] blank to default url.</span><br><span class="line">  nvm uninstall &lt;version&gt;      : The version must be a specific version.</span><br><span class="line">  nvm use [version] [arch]     : Switch to use the specified version. Optionally</span><br><span class="line"> specify 32/64bit architecture.</span><br><span class="line">                                 nvm use &lt;arch&gt; will <span class="built_in">continue</span> using the selected</span><br><span class="line"> version, but switch to 32/64 bit mode.</span><br><span class="line">  nvm root [path]              : Set the directory <span class="built_in">where</span> nvm should store differ</span><br><span class="line">ent versions of node.js.</span><br><span class="line">                                 If &lt;path&gt; is not <span class="built_in">set</span>, the current root will be</span><br><span class="line">displayed.</span><br><span class="line">  nvm version                  : Displays the current running version of nvm <span class="keyword">for</span></span><br><span class="line"> Windows. Aliased as v.</span><br></pre></td></tr></table></figure>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://heguichuan.github.io/2017/12/14/nvm学习笔记/" data-id="cjb64kdhg0001uohmbnxvro0w" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
   
     <article id="post-手机使用电脑代理访问内网的姿势" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
@@ -86,18 +125,18 @@
         <h1 id="手机使用电脑代理访问内网的姿势（实现手机修改host文件的效果）"><a href="#手机使用电脑代理访问内网的姿势（实现手机修改host文件的效果）" class="headerlink" title="手机使用电脑代理访问内网的姿势（实现手机修改host文件的效果）"></a>手机使用电脑代理访问内网的姿势（实现手机修改host文件的效果）</h1><h2 id="问题起源"><a href="#问题起源" class="headerlink" title="问题起源"></a>问题起源</h2><blockquote>
 <p>passport的h5登录页面出现了一次mate9手机浏览器兼容问题，一般情况下手机无法修改host，以前没找到使用mate9在测试环境访问的方法，问题一直拖了很久没解决，直到某一天从国池哥哥那里知道了使用电脑代理的方式可以访问内网的网站，实现修改手机host文件的效果。</p>
 </blockquote>
-<p><strong>参考链接：</strong><a href="https://www.cnblogs.com/biglion/p/5977137.html" target="_blank" rel="external">使用fiddler4做代理调试手机页面</a></p>
+<p><strong>参考链接：</strong><a href="https://www.cnblogs.com/biglion/p/5977137.html" target="_blank" rel="noopener">使用fiddler4做代理调试手机页面</a></p>
 <h2 id="具体步骤"><a href="#具体步骤" class="headerlink" title="具体步骤"></a>具体步骤</h2><ol>
 <li>需要手机通过wifi链接电脑，如果是台式电脑可以买一个外接网卡（最便宜的就可以了）。</li>
 <li>手机链接wifi后，需要给手机wifi配置代理，添加<code>主机名(就是wifi中的路由器栏的地址)</code>和<code>端口(fiddler默认监听的端口，默认8888)</code>。</li>
-<li>下载安装<a href="https://www.telerik.com/download/fiddler" target="_blank" rel="external">fiddler4</a>，具体配置见<a href="https://www.cnblogs.com/biglion/p/5977137.html" target="_blank" rel="external">参考链接</a>。</li>
+<li>下载安装<a href="https://www.telerik.com/download/fiddler" target="_blank" rel="noopener">fiddler4</a>，具体配置见<a href="https://www.cnblogs.com/biglion/p/5977137.html" target="_blank" rel="noopener">参考链接</a>。</li>
 <li>电脑修改host，手机访问域名体验效果。</li>
 </ol>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://heguichuan.github.io/2017/12/13/手机使用电脑代理访问内网的姿势/" data-id="cjb4u8jlx00025khmirly1g1c" class="article-share-link">Partager</a>
+      <a data-url="https://heguichuan.github.io/2017/12/13/手机使用电脑代理访问内网的姿势/" data-id="cjb64kdhk0004uohmdmgrcynz" class="article-share-link">Share</a>
       
       
     </footer>
@@ -129,12 +168,12 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="移动端页面开发学习笔记"><a href="#移动端页面开发学习笔记" class="headerlink" title="移动端页面开发学习笔记"></a>移动端页面开发学习笔记</h1><h2 id="基本思路"><a href="#基本思路" class="headerlink" title="基本思路"></a>基本思路</h2><p><strong>参考链接</strong>：<a href="https://www.w3cplus.com/css/vw-for-layout.html" target="_blank" rel="external">再聊移动端页面的适配</a></p>
+        <h1 id="移动端页面开发学习笔记"><a href="#移动端页面开发学习笔记" class="headerlink" title="移动端页面开发学习笔记"></a>移动端页面开发学习笔记</h1><h2 id="基本思路"><a href="#基本思路" class="headerlink" title="基本思路"></a>基本思路</h2><p><strong>参考链接</strong>：<a href="https://www.w3cplus.com/css/vw-for-layout.html" target="_blank" rel="noopener">再聊移动端页面的适配</a></p>
 <p><em><em>总结出来就是：</em></em></p>
 <ul>
-<li>使用<code>vw</code>来实现页面的适配，并且通过<code>PostCSS</code>的插件<a href="https://github.com/evrone/postcss-px-to-viewport" target="_blank" rel="external">postcss-px-to-viewport</a>把<code>px</code>转换成<code>vw</code>。这样我们可以直接使用<code>px</code>单位，插件帮我们自动转换。</li>
-<li>为了跟好的实现长宽比，特别是针对于<code>img</code>/<code>vedio</code>/<code>iframe</code>元素，通过PostCSS插件<a href="https://github.com/yisibl/postcss-aspect-ratio-mini" target="_blank" rel="external">postcss-aspect-ratio-mini</a>来实现，在实际使用中，只需要把对应的宽高写进去即可。</li>
-<li>为了解决<code>1px</code>问题,使用<code>PostCSS</code>插件<a href="https://github.com/jonathantneal/postcss-write-svg" target="_blank" rel="external">postcss-write-svg</a>,自动生成<code>border-image</code>或者<code>background-image</code>的图片。</li>
+<li>使用<code>vw</code>来实现页面的适配，并且通过<code>PostCSS</code>的插件<a href="https://github.com/evrone/postcss-px-to-viewport" target="_blank" rel="noopener">postcss-px-to-viewport</a>把<code>px</code>转换成<code>vw</code>。这样我们可以直接使用<code>px</code>单位，插件帮我们自动转换。</li>
+<li>为了跟好的实现长宽比，特别是针对于<code>img</code>/<code>vedio</code>/<code>iframe</code>元素，通过PostCSS插件<a href="https://github.com/yisibl/postcss-aspect-ratio-mini" target="_blank" rel="noopener">postcss-aspect-ratio-mini</a>来实现，在实际使用中，只需要把对应的宽高写进去即可。</li>
+<li>为了解决<code>1px</code>问题,使用<code>PostCSS</code>插件<a href="https://github.com/jonathantneal/postcss-write-svg" target="_blank" rel="noopener">postcss-write-svg</a>,自动生成<code>border-image</code>或者<code>background-image</code>的图片。</li>
 </ul>
 <p><em><em>可以使用vw的地方</em></em>：</p>
 <ul>
@@ -149,7 +188,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://heguichuan.github.io/2017/12/13/移动端页面开发笔记/" data-id="cjb4u8jly00035khmohwltbyx" class="article-share-link">Partager</a>
+      <a data-url="https://heguichuan.github.io/2017/12/13/移动端页面开发笔记/" data-id="cjb64kdhi0002uohmyti4l7gq" class="article-share-link">Share</a>
       
       
     </footer>
@@ -201,7 +240,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://heguichuan.github.io/2017/12/12/JS表单序列号与反序列化/" data-id="cjb4u8jlu00015khmv62fp2gc" class="article-share-link">Partager</a>
+      <a data-url="https://heguichuan.github.io/2017/12/12/JS表单序列号与反序列化/" data-id="cjb64kdhb0000uohmwl5wk8xv" class="article-share-link">Share</a>
       
       
     </footer>
@@ -241,7 +280,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://heguichuan.github.io/2017/11/10/hello-world/" data-id="cjb4u8jlp00005khmprclrpq2" class="article-share-link">Partager</a>
+      <a data-url="https://heguichuan.github.io/2017/11/10/hello-world/" data-id="cjb64kdhj0003uohmyylxvoxb" class="article-share-link">Share</a>
       
       
     </footer>
@@ -276,9 +315,13 @@
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title">Articles récents</h3>
+    <h3 class="widget-title">Recent Posts</h3>
     <div class="widget">
       <ul>
+        
+          <li>
+            <a href="/2017/12/14/nvm学习笔记/">nvm学习笔记</a>
+          </li>
         
           <li>
             <a href="/2017/12/13/手机使用电脑代理访问内网的姿势/">手机使用电脑代理访问内网的姿势（实现手机修改host文件的效果）</a>
@@ -309,7 +352,7 @@
   <div class="outer">
     <div id="footer-info" class="inner">
       &copy; 2017 heguichuan<br>
-      Propulsé by <a href="http://hexo.io/" target="_blank">Hexo</a>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
     </div>
   </div>
 </footer>
