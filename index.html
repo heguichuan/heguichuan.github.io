@@ -61,10 +61,59 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-设置input placeholder颜色" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/12/22/设置input placeholder颜色/" class="article-date">
+  <time datetime="2017-12-22T02:30:07.873Z" itemprop="datePublished">2017-12-22</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/12/22/设置input placeholder颜色/">设置input placeholder颜色</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>参考链接：<a href="https://segmentfault.com/q/1010000000397925" target="_blank" rel="noopener">使用CSS修改HTML5 input placeholder颜色</a></p>
+<p><em><em>css方式</em></em></p>
+<p>WebKit和Blink（Safari,Google Chrome, Opera15+）使用伪元素：</p>
+<p><code>::-webkit-input-placeholder</code></p>
+<p>Mozilla Firefox 4-18使用伪类</p>
+<p><code>:-moz-placeholder</code></p>
+<p>Mozilla Firefox 19+ 使用伪元素</p>
+<p><code>::-moz-placeholder</code></p>
+<p>IE10使用伪类</p>
+<p><code>:-ms-input-placeholder</code></p>
+<p>例子：</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">input</span><span class="selector-pseudo">::-webkit-input-placeholder</span>, <span class="selector-tag">textarea</span><span class="selector-pseudo">::-webkit-input-placeholder</span> &#123;</span><br><span class="line">    <span class="attribute">color</span>:    <span class="number">#666</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-tag">input</span><span class="selector-pseudo">:-moz-placeholder</span>, <span class="selector-tag">textarea</span><span class="selector-pseudo">:-moz-placeholder</span> &#123;</span><br><span class="line">    <span class="attribute">color</span>:    <span class="number">#666</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-tag">input</span><span class="selector-pseudo">::-moz-placeholder</span>, <span class="selector-tag">textarea</span><span class="selector-pseudo">::-moz-placeholder</span> &#123;</span><br><span class="line">    <span class="attribute">color</span>:    <span class="number">#666</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-tag">input</span><span class="selector-pseudo">:-ms-input-placeholder</span>, <span class="selector-tag">textarea</span><span class="selector-pseudo">:-ms-input-placeholder</span> &#123;</span><br><span class="line">    <span class="attribute">color</span>:    <span class="number">#666</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><em><em>js方式</em></em></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br></pre></td><td class="code"><pre><span class="line">setPlaceholderColor: <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="comment">/* jqury版</span></span><br><span class="line"><span class="comment">    $('[placeholder]').focus(function() &#123;</span></span><br><span class="line"><span class="comment">        var input = $(this);</span></span><br><span class="line"><span class="comment">        if (input.val() == input.attr('placeholder')) &#123;</span></span><br><span class="line"><span class="comment">            input.val('');</span></span><br><span class="line"><span class="comment">            input.removeClass('placeholder');</span></span><br><span class="line"><span class="comment">        &#125;</span></span><br><span class="line"><span class="comment">    &#125;).blur(function() &#123;</span></span><br><span class="line"><span class="comment">        var input = $(this);</span></span><br><span class="line"><span class="comment">        if (input.val() == '' || input.val() == input.attr('placeholder')) &#123;</span></span><br><span class="line"><span class="comment">            input.addClass('placeholder');</span></span><br><span class="line"><span class="comment">            input.val(input.attr('placeholder'));</span></span><br><span class="line"><span class="comment">        &#125;</span></span><br><span class="line"><span class="comment">    &#125;).blur();</span></span><br><span class="line"><span class="comment">    $('[placeholder]').parents('form').submit(function() &#123;</span></span><br><span class="line"><span class="comment">        $(this).find('[placeholder]').each(function() &#123;</span></span><br><span class="line"><span class="comment">            var input = $(this);</span></span><br><span class="line"><span class="comment">            if (input.val() == input.attr('placeholder')) &#123;</span></span><br><span class="line"><span class="comment">                input.val('');</span></span><br><span class="line"><span class="comment">            &#125;</span></span><br><span class="line"><span class="comment">        &#125;)</span></span><br><span class="line"><span class="comment">    &#125;);</span></span><br><span class="line"><span class="comment">    */</span></span><br><span class="line">    <span class="comment">// 原生js</span></span><br><span class="line">    <span class="keyword">var</span> inputList = <span class="built_in">document</span>.querySelectorAll(<span class="string">'[placeholder]'</span>);</span><br><span class="line">    <span class="keyword">var</span> formList = <span class="keyword">new</span> <span class="built_in">Set</span>();</span><br><span class="line">    inputList.forEach(<span class="function"><span class="keyword">function</span>(<span class="params">v,i</span>)</span>&#123;</span><br><span class="line">        v.addEventListener(<span class="string">'focus'</span>, <span class="function"><span class="keyword">function</span>(<span class="params">evt</span>)</span>&#123;</span><br><span class="line">            <span class="keyword">var</span> input = evt.target;</span><br><span class="line">            <span class="keyword">if</span> (input.value == input.placeholder) &#123;</span><br><span class="line">                input.value = <span class="string">''</span>;</span><br><span class="line">                input.classList.remove(<span class="string">'placeholder'</span>);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;);</span><br><span class="line">        v.addEventListener(<span class="string">'blur'</span>, <span class="function"><span class="keyword">function</span>(<span class="params">evt</span>)</span>&#123;</span><br><span class="line">            <span class="keyword">var</span> input = evt.target;</span><br><span class="line">            <span class="keyword">if</span> (input.value == <span class="string">''</span> || input.value == input.placeholder) &#123;</span><br><span class="line">                input.classList.add(<span class="string">'placeholder'</span>);</span><br><span class="line">                input.value = input.placeholder;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;)</span><br><span class="line">        v.blur();</span><br><span class="line">        <span class="keyword">var</span> parent = v.parentNode;</span><br><span class="line">        <span class="keyword">while</span> (parent.tagName !== <span class="string">'FORM'</span> &amp;&amp; parent.tagName !== <span class="string">'BODY'</span>) &#123;</span><br><span class="line">            parent = parent.parentNode;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (parent.tagName === <span class="string">'FORM'</span>) &#123;</span><br><span class="line">            formList.add(parent);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;)</span><br><span class="line">    formList.forEach(<span class="function"><span class="keyword">function</span>(<span class="params">form</span>)</span>&#123;</span><br><span class="line">        form.addEventListener(<span class="string">'submit'</span>, <span class="function"><span class="keyword">function</span>(<span class="params">evt</span>)</span>&#123;</span><br><span class="line">            evt.target.querySelectorAll(<span class="string">'[placeholder]'</span>).forEach(<span class="function"><span class="keyword">function</span>(<span class="params">input</span>)</span>&#123;</span><br><span class="line">                <span class="keyword">if</span> (input.value == input.placeholder) &#123;</span><br><span class="line">                    input.value = <span class="string">''</span>;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;)</span><br><span class="line">        &#125;)</span><br><span class="line">    &#125;)</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://heguichuan.github.io/2017/12/22/设置input placeholder颜色/" data-id="cjc1kehrg0003e0hmi40wrkym" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-nvm学习笔记" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2017/12/14/nvm学习笔记/" class="article-date">
-  <time datetime="2017-12-14T06:12:42.355Z" itemprop="datePublished">2017-12-14</time>
+  <time datetime="2017-12-14T06:12:42.354Z" itemprop="datePublished">2017-12-14</time>
 </a>
     
   </div>
@@ -90,7 +139,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://heguichuan.github.io/2017/12/14/nvm学习笔记/" data-id="cjb64kdhg0001uohmbnxvro0w" class="article-share-link">Share</a>
+      <a data-url="https://heguichuan.github.io/2017/12/14/nvm学习笔记/" data-id="cjc1kehrc0002e0hmozydqko5" class="article-share-link">Share</a>
       
       
     </footer>
@@ -103,7 +152,7 @@
     <article id="post-手机使用电脑代理访问内网的姿势" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2017/12/13/手机使用电脑代理访问内网的姿势/" class="article-date">
-  <time datetime="2017-12-13T08:03:53.198Z" itemprop="datePublished">2017-12-13</time>
+  <time datetime="2017-12-13T08:03:53.197Z" itemprop="datePublished">2017-12-13</time>
 </a>
     
   </div>
@@ -136,7 +185,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://heguichuan.github.io/2017/12/13/手机使用电脑代理访问内网的姿势/" data-id="cjb64kdhk0004uohmdmgrcynz" class="article-share-link">Share</a>
+      <a data-url="https://heguichuan.github.io/2017/12/13/手机使用电脑代理访问内网的姿势/" data-id="cjc1kehri0004e0hm5iotrobm" class="article-share-link">Share</a>
       
       
     </footer>
@@ -188,7 +237,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://heguichuan.github.io/2017/12/13/移动端页面开发笔记/" data-id="cjb64kdhi0002uohmyti4l7gq" class="article-share-link">Share</a>
+      <a data-url="https://heguichuan.github.io/2017/12/13/移动端页面开发笔记/" data-id="cjc1kehrn0005e0hmb08iutpo" class="article-share-link">Share</a>
       
       
     </footer>
@@ -240,7 +289,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://heguichuan.github.io/2017/12/12/JS表单序列号与反序列化/" data-id="cjb64kdhb0000uohmwl5wk8xv" class="article-share-link">Share</a>
+      <a data-url="https://heguichuan.github.io/2017/12/12/JS表单序列号与反序列化/" data-id="cjc1kehqz0000e0hmtfdnal3x" class="article-share-link">Share</a>
       
       
     </footer>
@@ -280,7 +329,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://heguichuan.github.io/2017/11/10/hello-world/" data-id="cjb64kdhj0003uohmyylxvoxb" class="article-share-link">Share</a>
+      <a data-url="https://heguichuan.github.io/2017/11/10/hello-world/" data-id="cjc1kehr60001e0hm9gpvahsp" class="article-share-link">Share</a>
       
       
     </footer>
@@ -320,6 +369,10 @@
       <ul>
         
           <li>
+            <a href="/2017/12/22/设置input placeholder颜色/">设置input placeholder颜色</a>
+          </li>
+        
+          <li>
             <a href="/2017/12/14/nvm学习笔记/">nvm学习笔记</a>
           </li>
         
@@ -335,10 +388,6 @@
             <a href="/2017/12/12/JS表单序列号与反序列化/">JS表单序列号与反序列化</a>
           </li>
         
-          <li>
-            <a href="/2017/11/10/hello-world/">hexo使用笔记</a>
-          </li>
-        
       </ul>
     </div>
   </div>
@@ -351,7 +400,7 @@
   
   <div class="outer">
     <div id="footer-info" class="inner">
-      &copy; 2017 heguichuan<br>
+      &copy; 2018 heguichuan<br>
       Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
     </div>
   </div>
