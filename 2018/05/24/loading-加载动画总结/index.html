@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>loading-加载动画总结 | Go Hiking</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="loading - 加载动画总结onenet篇1、表格内容加载动画html: 12345loadingStr(colspan)&amp;#123;        return &apos;&amp;lt;tr style=&quot;width: 100%;text-align: center;&quot;&amp;gt;&amp;lt;td colspan=&quot;&apos;+colspan+&apos;&quot;&amp;gt;&apos;        + &apos;&amp;lt;div class=&quot;load-w">
+<meta name="keywords" content="css,前端,笔记">
+<meta property="og:type" content="article">
+<meta property="og:title" content="loading-加载动画总结">
+<meta property="og:url" content="https://heguichuan.github.io/2018/05/24/loading-加载动画总结/index.html">
+<meta property="og:site_name" content="Go Hiking">
+<meta property="og:description" content="loading - 加载动画总结onenet篇1、表格内容加载动画html: 12345loadingStr(colspan)&amp;#123;        return &apos;&amp;lt;tr style=&quot;width: 100%;text-align: center;&quot;&amp;gt;&amp;lt;td colspan=&quot;&apos;+colspan+&apos;&quot;&amp;gt;&apos;        + &apos;&amp;lt;div class=&quot;load-w">
+<meta property="og:updated_time" content="2018-06-01T09:15:06.508Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="loading-加载动画总结">
+<meta name="twitter:description" content="loading - 加载动画总结onenet篇1、表格内容加载动画html: 12345loadingStr(colspan)&amp;#123;        return &apos;&amp;lt;tr style=&quot;width: 100%;text-align: center;&quot;&amp;gt;&amp;lt;td colspan=&quot;&apos;+colspan+&apos;&quot;&amp;gt;&apos;        + &apos;&amp;lt;div class=&quot;load-w">
+  
+    <link rel="alternate" href="/atom.xml" title="Go Hiking" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Go Hiking</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://heguichuan.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-loading-加载动画总结" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/05/24/loading-加载动画总结/" class="article-date">
+  <time datetime="2018-05-24T07:05:51.046Z" itemprop="datePublished">2018-05-24</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      loading-加载动画总结
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="loading-加载动画总结"><a href="#loading-加载动画总结" class="headerlink" title="loading - 加载动画总结"></a>loading - 加载动画总结</h1><h2 id="onenet篇"><a href="#onenet篇" class="headerlink" title="onenet篇"></a>onenet篇</h2><h3 id="1、表格内容加载动画"><a href="#1、表格内容加载动画" class="headerlink" title="1、表格内容加载动画"></a>1、表格内容加载动画</h3><p><strong>html:</strong></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">loadingStr(colspan)&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">'&lt;tr style="width: 100%;text-align: center;"&gt;&lt;td colspan="'</span>+colspan+<span class="string">'"&gt;'</span></span><br><span class="line">        + <span class="string">'&lt;div class="load-wrapper loading-wrapper"&gt;&lt;i class="icon-spin5 animate-spin"&gt;&lt;/i&gt;&lt;/div&gt;'</span></span><br><span class="line">        + <span class="string">'&lt;/td&gt;&lt;/tr&gt;'</span>;</span><br><span class="line">&#125;,</span><br></pre></td></tr></table></figure>
+<p><strong>css:</strong></p>
+<p>引入common.less就可以。</p>
+<h3 id="2、页面加载动画"><a href="#2、页面加载动画" class="headerlink" title="2、页面加载动画"></a>2、页面加载动画</h3><p><strong>html:</strong></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">_loadingDomStr () &#123;</span><br><span class="line">    <span class="keyword">return</span> $([<span class="string">'&lt;div class="show-loading"&gt;'</span>,</span><br><span class="line">              <span class="string">'&lt;div class="loading"&gt;'</span>,</span><br><span class="line">              <span class="string">'&lt;div class="spin"&gt;'</span>,</span><br><span class="line">              <span class="string">'&lt;div class="load"&gt;'</span>,</span><br><span class="line">              <span class="string">'&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;'</span>,</span><br><span class="line">              <span class="string">'&lt;/div&gt;'</span>,</span><br><span class="line">              <span class="string">'&lt;/div&gt;'</span>,</span><br><span class="line">              <span class="string">'&lt;/div&gt;'</span>,</span><br><span class="line">              <span class="string">'&lt;/div&gt;'</span>].join(<span class="string">' '</span>));</span><br><span class="line">&#125;,</span><br></pre></td></tr></table></figure>
+<p><strong>css:</strong></p>
+<figure class="highlight less"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">@import</span> url(<span class="string">"/common/css/module/multislider.less"</span>);</span><br><span class="line"><span class="selector-class">.show-loading</span> &#123;</span><br><span class="line">    <span class="attribute">width</span>: <span class="number">100%</span>;</span><br><span class="line">    <span class="attribute">height</span>: <span class="number">100px</span>;</span><br><span class="line">	<span class="attribute">text-align</span>: center;</span><br><span class="line">	<span class="attribute">line-height</span>: <span class="number">100px</span>;</span><br><span class="line">	<span class="selector-class">.loading</span> &#123;</span><br><span class="line">		<span class="attribute">position</span>: absolute;</span><br><span class="line">		<span class="attribute">top</span>: <span class="number">50%</span>; <span class="attribute">left</span>: <span class="number">50%</span>;</span><br><span class="line">		<span class="attribute">transform</span>: translate(-<span class="number">50%</span>, -<span class="number">50%</span>);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="通用篇"><a href="#通用篇" class="headerlink" title="通用篇"></a>通用篇</h2><blockquote>
+<p>主要是有三个开源库：</p>
+<ol>
+<li><a href="https://github.com/tobiasahlin/SpinKit" target="_blank" rel="noopener">SpinKit</a> 可以直接拷贝demo代码，用哪个拷哪个很方便。</li>
+<li><a href="https://github.com/ConnorAtherton/loaders.css" target="_blank" rel="noopener">loaders.css</a> 另外一个实现，有react、vue等版本。</li>
+<li><a href="https://github.com/jxnblk/loading/" target="_blank" rel="noopener">loading</a> svg动画。</li>
+</ol>
+<p>在线生成loading的网站：<a href="https://loading.io/" target="_blank" rel="noopener">https://loading.io/</a></p>
+</blockquote>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://heguichuan.github.io/2018/05/24/loading-加载动画总结/" data-id="cjn5jxiyg0006eshmb26i6mmo" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/css-前端-笔记/">css,前端,笔记</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2018/06/14/多页应用&webpack4/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          (no title)
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2017/12/22/设置input placeholder颜色/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">设置input placeholder颜色</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/css-前端-笔记/">css,前端,笔记</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/css-前端-笔记/" style="font-size: 10px;">css,前端,笔记</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/09/">September 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/06/">June 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/05/">May 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/12/">December 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/11/">November 2017</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2018/09/25/xlsx，js处理、生成excel文件/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2018/06/14/多页应用&webpack4/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2018/05/24/loading-加载动画总结/">loading-加载动画总结</a>
+          </li>
+        
+          <li>
+            <a href="/2017/12/22/设置input placeholder颜色/">设置input placeholder颜色</a>
+          </li>
+        
+          <li>
+            <a href="/2017/12/14/nvm学习笔记/">nvm学习笔记</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2018 heguichuan<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+  </div>
+</body>
+</html>
