@@ -3,18 +3,19 @@
 <head>
   <meta charset="utf-8">
   
-  <title>Go Hiking</title>
+  <title>xlsx，js处理、生成excel文件 | Go Hiking</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="xlsx，js处理、生成excel文件.md参考导出为excel的例子文档js-xlsx/github json生成xlsx文件关键代码1&amp;lt;div onclick=&quot;doit(&apos;xlsx&apos;)&quot;&amp;gt;abc&amp;lt;/div&amp;gt; 123456789101112131415161718192021function doit(type) &amp;#123;    var jsonData = [&amp;#">
+  <meta name="description" content="xlsx，js处理、生成excel文件参考导出为excel的例子文档js-xlsx/github json生成xlsx文件关键代码1&amp;lt;div onclick=&quot;doit(&apos;xlsx&apos;)&quot;&amp;gt;abc&amp;lt;/div&amp;gt; 123456789101112131415161718192021function doit(type) &amp;#123;    var jsonData = [&amp;#123">
+<meta name="keywords" content="js-lib">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Go Hiking">
+<meta property="og:title" content="xlsx，js处理、生成excel文件">
 <meta property="og:url" content="https://heguichuan.github.io/2018/09/25/xlsx，js处理、生成excel文件/index.html">
 <meta property="og:site_name" content="Go Hiking">
-<meta property="og:description" content="xlsx，js处理、生成excel文件.md参考导出为excel的例子文档js-xlsx/github json生成xlsx文件关键代码1&amp;lt;div onclick=&quot;doit(&apos;xlsx&apos;)&quot;&amp;gt;abc&amp;lt;/div&amp;gt; 123456789101112131415161718192021function doit(type) &amp;#123;    var jsonData = [&amp;#">
-<meta property="og:updated_time" content="2018-09-25T11:15:29.415Z">
+<meta property="og:description" content="xlsx，js处理、生成excel文件参考导出为excel的例子文档js-xlsx/github json生成xlsx文件关键代码1&amp;lt;div onclick=&quot;doit(&apos;xlsx&apos;)&quot;&amp;gt;abc&amp;lt;/div&amp;gt; 123456789101112131415161718192021function doit(type) &amp;#123;    var jsonData = [&amp;#123">
+<meta property="og:updated_time" content="2018-10-12T05:35:05.884Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Go Hiking">
-<meta name="twitter:description" content="xlsx，js处理、生成excel文件.md参考导出为excel的例子文档js-xlsx/github json生成xlsx文件关键代码1&amp;lt;div onclick=&quot;doit(&apos;xlsx&apos;)&quot;&amp;gt;abc&amp;lt;/div&amp;gt; 123456789101112131415161718192021function doit(type) &amp;#123;    var jsonData = [&amp;#">
+<meta name="twitter:title" content="xlsx，js处理、生成excel文件">
+<meta name="twitter:description" content="xlsx，js处理、生成excel文件参考导出为excel的例子文档js-xlsx/github json生成xlsx文件关键代码1&amp;lt;div onclick=&quot;doit(&apos;xlsx&apos;)&quot;&amp;gt;abc&amp;lt;/div&amp;gt; 123456789101112131415161718192021function doit(type) &amp;#123;    var jsonData = [&amp;#123">
   
     <link rel="alternate" href="/atom.xml" title="Go Hiking" type="application/atom+xml">
   
@@ -39,6 +40,10 @@
       <h1 id="logo-wrap">
         <a href="/" id="logo">Go Hiking</a>
       </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">Share World</a>
+        </h2>
       
     </div>
     <div id="header-inner" class="inner">
@@ -73,17 +78,29 @@
   <div class="article-inner">
     
     
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      xlsx，js处理、生成excel文件
+    </h1>
+  
+
+      </header>
+    
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="xlsx，js处理、生成excel文件-md"><a href="#xlsx，js处理、生成excel文件-md" class="headerlink" title="xlsx，js处理、生成excel文件.md"></a>xlsx，js处理、生成excel文件.md</h1><h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p><a href="http://sheetjs.com/demos/modify.html" target="_blank" rel="noopener">导出为excel的例子</a><br><a href="https://docs.sheetjs.com/#working-with-the-workbook" target="_blank" rel="noopener">文档</a><br><a href="https://github.com/SheetJS/js-xlsx" target="_blank" rel="noopener">js-xlsx/github</a></p>
+        <h1 id="xlsx，js处理、生成excel文件"><a href="#xlsx，js处理、生成excel文件" class="headerlink" title="xlsx，js处理、生成excel文件"></a>xlsx，js处理、生成excel文件</h1><h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p><a href="http://sheetjs.com/demos/modify.html" target="_blank" rel="noopener">导出为excel的例子</a><br><a href="https://docs.sheetjs.com/#working-with-the-workbook" target="_blank" rel="noopener">文档</a><br><a href="https://github.com/SheetJS/js-xlsx" target="_blank" rel="noopener">js-xlsx/github</a></p>
 <h2 id="json生成xlsx文件关键代码"><a href="#json生成xlsx文件关键代码" class="headerlink" title="json生成xlsx文件关键代码"></a>json生成xlsx文件关键代码</h2><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">onclick</span>=<span class="string">"doit('xlsx')"</span>&gt;</span>abc<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">doit</span>(<span class="params">type</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> jsonData = [&#123;</span><br><span class="line">        a:<span class="number">1</span>,</span><br><span class="line">        b:<span class="number">2</span>,</span><br><span class="line">        c:<span class="number">3</span></span><br><span class="line">    &#125;,</span><br><span class="line">    &#123;</span><br><span class="line">        a:<span class="number">11</span>,</span><br><span class="line">        b:<span class="number">22</span>,</span><br><span class="line">        c:<span class="number">33</span></span><br><span class="line">    &#125;,</span><br><span class="line">    &#123;</span><br><span class="line">        a:<span class="number">21</span>,</span><br><span class="line">        b:<span class="number">22</span>,</span><br><span class="line">        c:<span class="number">23</span></span><br><span class="line">    &#125;]</span><br><span class="line">    <span class="keyword">var</span> wb = XLSX.utils.book_new(); <span class="comment">//生成新的workbook实例</span></span><br><span class="line">    <span class="keyword">var</span> ws = XLSX.utils.json_to_sheet(jsonData); <span class="comment">//将json转化为worksheet对象</span></span><br><span class="line">    XLSX.utils.book_append_sheet(wb, ws, <span class="string">'表单11'</span>); <span class="comment">//向workbook实例中添加表单(worksheet)</span></span><br><span class="line">    XLSX.writeFile(wb, <span class="string">'test.xlsx'</span>);  <span class="comment">//保存文件</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://heguichuan.github.io/2018/09/25/xlsx，js处理、生成excel文件/" data-id="cjn5jxiyh0007eshmmo01x5m6" class="article-share-link">Share</a>
+      <a data-url="https://heguichuan.github.io/2018/09/25/xlsx，js处理、生成excel文件/" data-id="cjn5kyca00004k0hmsjuu1y9b" class="article-share-link">Share</a>
       
       
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/js-lib/">js-lib</a></li></ul>
+
     </footer>
   </div>
   
@@ -91,9 +108,9 @@
 <nav id="article-nav">
   
   
-    <a href="/2018/06/14/多页应用&webpack4/" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="/2018/05/24/loading-加载动画总结/" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">Older</strong>
-      <div class="article-nav-title"></div>
+      <div class="article-nav-title">loading-加载动画总结</div>
     </a>
   
 </nav>
@@ -112,7 +129,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Tags</h3>
     <div class="widget">
-      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/css-前端-笔记/">css,前端,笔记</a></li></ul>
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/css/">css</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/js-lib/">js-lib</a></li></ul>
     </div>
   </div>
 
@@ -122,7 +139,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Tag Cloud</h3>
     <div class="widget tagcloud">
-      <a href="/tags/css-前端-笔记/" style="font-size: 10px;">css,前端,笔记</a>
+      <a href="/tags/css/" style="font-size: 10px;">css</a> <a href="/tags/js-lib/" style="font-size: 10px;">js-lib</a>
     </div>
   </div>
 
@@ -131,7 +148,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/09/">September 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/06/">June 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/05/">May 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/12/">December 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/11/">November 2017</a></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/09/">September 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/05/">May 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/12/">December 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/11/">November 2017</a></li></ul>
     </div>
   </div>
 
@@ -144,11 +161,7 @@
       <ul>
         
           <li>
-            <a href="/2018/09/25/xlsx，js处理、生成excel文件/">(no title)</a>
-          </li>
-        
-          <li>
-            <a href="/2018/06/14/多页应用&webpack4/">(no title)</a>
+            <a href="/2018/09/25/xlsx，js处理、生成excel文件/">xlsx，js处理、生成excel文件</a>
           </li>
         
           <li>
@@ -161,6 +174,10 @@
         
           <li>
             <a href="/2017/12/14/nvm学习笔记/">nvm学习笔记</a>
+          </li>
+        
+          <li>
+            <a href="/2017/12/13/手机使用电脑代理访问内网的姿势/">手机使用电脑代理访问内网的姿势（实现手机修改host文件的效果）</a>
           </li>
         
       </ul>
