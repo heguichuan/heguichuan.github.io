@@ -5,7 +5,7 @@
   
 
 
-<html class="theme-next gemini use-motion" lang="zh-Hans">
+<html class="theme-next muse use-motion" lang="zh-Hans">
 <head>
   <meta charset="UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -96,7 +96,7 @@
   var NexT = window.NexT || {};
   var CONFIG = {
     root: '/',
-    scheme: 'Gemini',
+    scheme: 'Muse',
     version: '5.1.4',
     sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
     fancybox: true,
@@ -232,7 +232,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://heguichuan.github.io/2018/09/25/xlsx，js处理、生成excel文件/">
+    <link itemprop="mainEntityOfPage" href="https://heguichuan.github.io/2018/07/18/xlsx，js处理、生成excel文件/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="heguichuan">
@@ -251,7 +251,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/09/25/xlsx，js处理、生成excel文件/" itemprop="url">xlsx，js处理、生成excel文件</a></h1>
+                <a class="post-title-link" href="/2018/07/18/xlsx，js处理、生成excel文件/" itemprop="url">xlsx，js处理、生成excel文件</a></h1>
         
 
         <div class="post-meta">
@@ -263,8 +263,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-09-25T19:05:21+08:00">
-                2018-09-25
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-07-18T21:52:34+08:00">
+                2018-07-18
               </time>
             
 
@@ -353,7 +353,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://heguichuan.github.io/2018/05/24/loading-加载动画总结/">
+    <link itemprop="mainEntityOfPage" href="https://heguichuan.github.io/2018/06/22/JS表单序列号与反序列化/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="heguichuan">
@@ -372,7 +372,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/05/24/loading-加载动画总结/" itemprop="url">loading-加载动画总结</a></h1>
+                <a class="post-title-link" href="/2018/06/22/JS表单序列号与反序列化/" itemprop="url">JS表单序列号与反序列化</a></h1>
         
 
         <div class="post-meta">
@@ -384,8 +384,275 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-05-24T15:05:51+08:00">
-                2018-05-24
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-06-22T13:05:37+08:00">
+                2018-06-22
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="JS表单序列号与反序列化"><a href="#JS表单序列号与反序列化" class="headerlink" title="JS表单序列号与反序列化"></a>JS表单序列号与反序列化</h1><blockquote>
+<p><code>jQuery</code>有这两个方法 <code>.serializeArray()</code> 与<code>.serialize()</code>.</p>
+<p><code>.serializeArray()</code>返回: <code>Array</code></p>
+<p>描述: 将用作提交的表单元素的值编译成拥有<code>name</code>和<code>value</code>对象组成的数组。例如<code>[ { name: a value: 1 }, { name: b value: 2 },…]</code></p>
+<p>一般用于<code>Ajax POST</code></p>
+<p><code>.serialize()</code>返回: <code>String</code></p>
+<p>描述: 将用作提交的表单元素的值编译成字符串。如：<code>single=Single&amp;multiple=Multiple&amp;multiple=Multiple3&amp;check=check2&amp;radio=radio1</code></p>
+<p>一般用于<code>GET</code></p>
+</blockquote>
+<p>主要介绍<code>.serializeArray()</code>方法。</p>
+<p>这个方法很方便，但是在多选的情况先会出现一些问题：</p>
+<p>比如<code>select,checkbox</code>。此时返回的是<code>[{multiple:Multiple},{multiple:Multiple3},{check:check1}},{check:check2}]</code></p>
+<p>而我们期望的是<code>[{multiple:[Multiple,Multiple3]},{check:[check1,check2]}]</code></p>
+<p>而且我们通过<code>ajax</code>提交的请求数据根对象期望是<code>json</code>对象而不是直接的<code>json</code>数组。</p>
+<p>针对上面说的情形我们写个工具方法用于处理：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 序列化表单元素为JSON对象</span></span><br><span class="line"><span class="comment"> * @param form          Form表单id或表单jquery DOM对象</span></span><br><span class="line"><span class="comment"> * @returns &#123;&#125;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">var</span> serialize = <span class="function"><span class="keyword">function</span>(<span class="params">form</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">var</span> $form = (<span class="keyword">typeof</span>(form)==<span class="string">"string"</span> ? $(<span class="string">"#"</span>+form) : form);</span><br><span class="line">    <span class="keyword">var</span> dataArray =  $form.serializeArray();</span><br><span class="line">    <span class="keyword">var</span> result=&#123;&#125;;</span><br><span class="line">    $(dataArray).each(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">        <span class="comment">//如果在结果对象中存在这个值，那么就说明是多选的情形。</span></span><br><span class="line">        <span class="keyword">if</span>(result[<span class="keyword">this</span>.name])&#123;</span><br><span class="line">            <span class="comment">//多选的情形，值是数组，直接push</span></span><br><span class="line">            result[<span class="keyword">this</span>.name].push(<span class="keyword">this</span>.value);</span><br><span class="line">        &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">            <span class="comment">//获取当前表单控件元素</span></span><br><span class="line">            <span class="keyword">var</span> element = $form.find(<span class="string">"[name='"</span>+ <span class="keyword">this</span>.name +<span class="string">"']"</span>)[<span class="number">0</span>];</span><br><span class="line">            <span class="comment">//获取当前控件类型</span></span><br><span class="line">            <span class="keyword">var</span> type = ( element.type || element.nodeName ).toLowerCase();</span><br><span class="line">            <span class="comment">//如果控件类型为多选那么值就是数组形式，否则就是单值形式。</span></span><br><span class="line">            result[<span class="keyword">this</span>.name] = (<span class="regexp">/^(select-multiple|checkbox)$/i</span>).test(type) ? [<span class="keyword">this</span>.value] : <span class="keyword">this</span>.value;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;);</span><br><span class="line">    <span class="keyword">return</span> result;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 通过js设置表单值</span></span><br><span class="line"><span class="comment"> * @param form          Form表单id或表单jquery DOM对象</span></span><br><span class="line"><span class="comment"> * @param data          json对象，多选时为数组</span></span><br><span class="line"><span class="comment"> * 代码实现参考此开源项目https://github.com/kflorence/jquery-deserialize/</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">var</span> deserialize = <span class="function"><span class="keyword">function</span>(<span class="params">form,data</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">var</span> rcheck = <span class="regexp">/^(?:radio|checkbox)$/i</span>,</span><br><span class="line">        rselect = <span class="regexp">/^(?:option|select-one|select-multiple)$/i</span>,</span><br><span class="line">        rvalue = <span class="regexp">/^(?:button|color|date|datetime|datetime-local|email|hidden|month|number|password|range|reset|search|submit|tel|text|textarea|time|url|week)$/i</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">var</span> $form = (<span class="keyword">typeof</span>(form)==<span class="string">"string"</span> ? $(<span class="string">"#"</span>+form) : form);</span><br><span class="line"></span><br><span class="line">    <span class="comment">//得到所有表单元素</span></span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">getElements</span>(<span class="params"> elements </span>) </span>&#123;</span><br><span class="line">        <span class="comment">//此处elements为jquery对象。这个map函数使用来便利elements数组的.如存在多个form表单，则便利多个form表单</span></span><br><span class="line">        <span class="keyword">return</span> elements.map(<span class="function"><span class="keyword">function</span>(<span class="params">index, domElemen</span>) </span>&#123;</span><br><span class="line">            <span class="comment">//this代表form表单，this.elements获取表单中的DOM数组. jQuery.makeArray 转换一个类似数组的对象成为真正的JavaScript数组。</span></span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">this</span>.elements ? jQuery.makeArray( <span class="keyword">this</span>.elements ) : <span class="keyword">this</span>;</span><br><span class="line">            <span class="comment">//过滤不启用的选项</span></span><br><span class="line">        &#125;).filter( <span class="string">":input:not(:disabled)"</span> ).get();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//把表单元素转为json对象</span></span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">elementsToJson</span>(<span class="params"> elements </span>) </span>&#123;</span><br><span class="line">        <span class="keyword">var</span> current,elementsByName = &#123;&#125;;</span><br><span class="line">        <span class="comment">//elementsByName对象为&#123;控件名：控件元素或控件元素数组&#125;</span></span><br><span class="line">        jQuery.each( elements, <span class="function"><span class="keyword">function</span>(<span class="params"> i, element </span>) </span>&#123;</span><br><span class="line">            current = elementsByName[ element.name ];</span><br><span class="line">            elementsByName[ element.name ] = current === <span class="literal">undefined</span> ? element :</span><br><span class="line">                <span class="comment">//如果已经是一个数组了，那么就添加，否则构造一个数组</span></span><br><span class="line">                ( jQuery.isArray( current ) ? current.concat( element ) : [ current, element ] );</span><br><span class="line">        &#125;);</span><br><span class="line">        <span class="keyword">return</span> elementsByName;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">var</span> elementsJson = elementsToJson(getElements($form));</span><br><span class="line"><span class="comment">//data是一个对象</span></span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">var</span> key <span class="keyword">in</span> data)&#123;</span><br><span class="line">        <span class="keyword">var</span> val = data[key];</span><br><span class="line">        <span class="keyword">var</span> dataArr = [];<span class="comment">//更具数据直接构造一个jQUery序列化后的数组形式。</span></span><br><span class="line">        <span class="comment">//判断值是否为数组</span></span><br><span class="line">        <span class="keyword">if</span>( $.isArray(val))&#123;</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">var</span> i= <span class="number">0</span>,v;v=val[i++];)&#123;</span><br><span class="line">                <span class="comment">//是数组那么就变成多个对象形式</span></span><br><span class="line">                dataArr.push(&#123;<span class="attr">name</span>:key,<span class="attr">value</span>:v&#125;);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125; <span class="keyword">else</span>&#123;</span><br><span class="line">            <span class="comment">//不是数组直接构造</span></span><br><span class="line">            dataArr.push(&#123;<span class="attr">name</span>:key,<span class="attr">value</span>:val&#125;);</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        <span class="comment">//根据数据构造的这个数组进行操作</span></span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">var</span> m= <span class="number">0</span>,vObj;vObj=dataArr[m++];)&#123;</span><br><span class="line">            <span class="keyword">var</span> element;</span><br><span class="line">            <span class="comment">//如果表单中无元素则跳过</span></span><br><span class="line">            <span class="keyword">if</span> ( !( element = elementsJson[vObj.name] ) ) &#123;</span><br><span class="line">                <span class="keyword">continue</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="comment">//判断元素是否为数组,暂时获取第一个元素，后面会有迭代赋值。</span></span><br><span class="line">            <span class="keyword">var</span> type = element.length?element[<span class="number">0</span>]:element;</span><br><span class="line">            <span class="comment">//元素类型</span></span><br><span class="line">            type = ( type.type || type.nodeName ).toLowerCase();</span><br><span class="line"></span><br><span class="line">            <span class="keyword">var</span> property = <span class="literal">null</span>;</span><br><span class="line">            <span class="comment">//是单值类型</span></span><br><span class="line">            <span class="keyword">if</span> ( rvalue.test( type ) ) &#123;</span><br><span class="line">                element.value = (<span class="keyword">typeof</span>(vObj.value)==<span class="string">"undefined"</span> || vObj.value==<span class="literal">null</span>)?<span class="string">""</span>:vObj.value;</span><br><span class="line">                <span class="comment">//checkbox</span></span><br><span class="line">            &#125; <span class="keyword">else</span> <span class="keyword">if</span> ( rcheck.test( type ) ) &#123;</span><br><span class="line">                property = <span class="string">"checked"</span>;</span><br><span class="line">    <span class="comment">//select</span></span><br><span class="line">            &#125; <span class="keyword">else</span> <span class="keyword">if</span> ( rselect.test( type ) ) &#123;</span><br><span class="line">                property = <span class="string">"selected"</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="comment">//判断类型是否为多选</span></span><br><span class="line">            <span class="keyword">if</span>(property) &#123;</span><br><span class="line">                <span class="comment">//如果是，则迭代多选的元素赋值</span></span><br><span class="line">                <span class="keyword">for</span>(<span class="keyword">var</span> n= <span class="number">0</span>,e;e=element[n++];)&#123;</span><br><span class="line">                    <span class="keyword">if</span>(e.value==vObj.value)&#123;</span><br><span class="line">                        <span class="comment">//设置选中</span></span><br><span class="line">                        e[property] = <span class="literal">true</span>;</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://heguichuan.github.io/2018/05/12/设置input-placeholder颜色/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="heguichuan">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Go Hiking">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/05/12/设置input-placeholder颜色/" itemprop="url">设置input placeholder颜色</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-05-12T14:36:35+08:00">
+                2018-05-12
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>参考链接：<a href="https://segmentfault.com/q/1010000000397925" target="_blank" rel="noopener">使用CSS修改HTML5 input placeholder颜色</a></p>
+<p><em><em>css方式</em></em></p>
+<p>WebKit和Blink（Safari,Google Chrome, Opera15+）使用伪元素：</p>
+<p><code>::-webkit-input-placeholder</code></p>
+<p>Mozilla Firefox 4-18使用伪类</p>
+<p><code>:-moz-placeholder</code></p>
+<p>Mozilla Firefox 19+ 使用伪元素</p>
+<p><code>::-moz-placeholder</code></p>
+<p>IE10使用伪类</p>
+<p><code>:-ms-input-placeholder</code></p>
+<p>例子：</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">input</span><span class="selector-pseudo">::-webkit-input-placeholder</span>, <span class="selector-tag">textarea</span><span class="selector-pseudo">::-webkit-input-placeholder</span> &#123;</span><br><span class="line">    <span class="attribute">color</span>:    <span class="number">#666</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-tag">input</span><span class="selector-pseudo">:-moz-placeholder</span>, <span class="selector-tag">textarea</span><span class="selector-pseudo">:-moz-placeholder</span> &#123;</span><br><span class="line">    <span class="attribute">color</span>:    <span class="number">#666</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-tag">input</span><span class="selector-pseudo">::-moz-placeholder</span>, <span class="selector-tag">textarea</span><span class="selector-pseudo">::-moz-placeholder</span> &#123;</span><br><span class="line">    <span class="attribute">color</span>:    <span class="number">#666</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-tag">input</span><span class="selector-pseudo">:-ms-input-placeholder</span>, <span class="selector-tag">textarea</span><span class="selector-pseudo">:-ms-input-placeholder</span> &#123;</span><br><span class="line">    <span class="attribute">color</span>:    <span class="number">#666</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><em><em>js方式</em></em></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br></pre></td><td class="code"><pre><span class="line">setPlaceholderColor: <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="comment">/* jqury版</span></span><br><span class="line"><span class="comment">    $('[placeholder]').focus(function() &#123;</span></span><br><span class="line"><span class="comment">        var input = $(this);</span></span><br><span class="line"><span class="comment">        if (input.val() == input.attr('placeholder')) &#123;</span></span><br><span class="line"><span class="comment">            input.val('');</span></span><br><span class="line"><span class="comment">            input.removeClass('placeholder');</span></span><br><span class="line"><span class="comment">        &#125;</span></span><br><span class="line"><span class="comment">    &#125;).blur(function() &#123;</span></span><br><span class="line"><span class="comment">        var input = $(this);</span></span><br><span class="line"><span class="comment">        if (input.val() == '' || input.val() == input.attr('placeholder')) &#123;</span></span><br><span class="line"><span class="comment">            input.addClass('placeholder');</span></span><br><span class="line"><span class="comment">            input.val(input.attr('placeholder'));</span></span><br><span class="line"><span class="comment">        &#125;</span></span><br><span class="line"><span class="comment">    &#125;).blur();</span></span><br><span class="line"><span class="comment">    $('[placeholder]').parents('form').submit(function() &#123;</span></span><br><span class="line"><span class="comment">        $(this).find('[placeholder]').each(function() &#123;</span></span><br><span class="line"><span class="comment">            var input = $(this);</span></span><br><span class="line"><span class="comment">            if (input.val() == input.attr('placeholder')) &#123;</span></span><br><span class="line"><span class="comment">                input.val('');</span></span><br><span class="line"><span class="comment">            &#125;</span></span><br><span class="line"><span class="comment">        &#125;)</span></span><br><span class="line"><span class="comment">    &#125;);</span></span><br><span class="line"><span class="comment">    */</span></span><br><span class="line">    <span class="comment">// 原生js</span></span><br><span class="line">    <span class="keyword">var</span> inputList = <span class="built_in">document</span>.querySelectorAll(<span class="string">'[placeholder]'</span>);</span><br><span class="line">    <span class="keyword">var</span> formList = <span class="keyword">new</span> <span class="built_in">Set</span>();</span><br><span class="line">    inputList.forEach(<span class="function"><span class="keyword">function</span>(<span class="params">v,i</span>)</span>&#123;</span><br><span class="line">        v.addEventListener(<span class="string">'focus'</span>, <span class="function"><span class="keyword">function</span>(<span class="params">evt</span>)</span>&#123;</span><br><span class="line">            <span class="keyword">var</span> input = evt.target;</span><br><span class="line">            <span class="keyword">if</span> (input.value == input.placeholder) &#123;</span><br><span class="line">                input.value = <span class="string">''</span>;</span><br><span class="line">                input.classList.remove(<span class="string">'placeholder'</span>);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;);</span><br><span class="line">        v.addEventListener(<span class="string">'blur'</span>, <span class="function"><span class="keyword">function</span>(<span class="params">evt</span>)</span>&#123;</span><br><span class="line">            <span class="keyword">var</span> input = evt.target;</span><br><span class="line">            <span class="keyword">if</span> (input.value == <span class="string">''</span> || input.value == input.placeholder) &#123;</span><br><span class="line">                input.classList.add(<span class="string">'placeholder'</span>);</span><br><span class="line">                input.value = input.placeholder;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;)</span><br><span class="line">        v.blur();</span><br><span class="line">        <span class="keyword">var</span> parent = v.parentNode;</span><br><span class="line">        <span class="keyword">while</span> (parent.tagName !== <span class="string">'FORM'</span> &amp;&amp; parent.tagName !== <span class="string">'BODY'</span>) &#123;</span><br><span class="line">            parent = parent.parentNode;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (parent.tagName === <span class="string">'FORM'</span>) &#123;</span><br><span class="line">            formList.add(parent);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;)</span><br><span class="line">    formList.forEach(<span class="function"><span class="keyword">function</span>(<span class="params">form</span>)</span>&#123;</span><br><span class="line">        form.addEventListener(<span class="string">'submit'</span>, <span class="function"><span class="keyword">function</span>(<span class="params">evt</span>)</span>&#123;</span><br><span class="line">            evt.target.querySelectorAll(<span class="string">'[placeholder]'</span>).forEach(<span class="function"><span class="keyword">function</span>(<span class="params">input</span>)</span>&#123;</span><br><span class="line">                <span class="keyword">if</span> (input.value == input.placeholder) &#123;</span><br><span class="line">                    input.value = <span class="string">''</span>;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;)</span><br><span class="line">        &#125;)</span><br><span class="line">    &#125;)</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://heguichuan.github.io/2018/01/12/loading-加载动画总结/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="heguichuan">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Go Hiking">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/01/12/loading-加载动画总结/" itemprop="url">loading-加载动画总结</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-01-12T23:20:30+08:00">
+                2018-01-12
               </time>
             
 
@@ -489,7 +756,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://heguichuan.github.io/2017/12/22/设置input placeholder颜色/">
+    <link itemprop="mainEntityOfPage" href="https://heguichuan.github.io/2018/01/12/移动端页面开发笔记/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="heguichuan">
@@ -508,7 +775,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2017/12/22/设置input placeholder颜色/" itemprop="url">设置input placeholder颜色</a></h1>
+                <a class="post-title-link" href="/2018/01/12/移动端页面开发笔记/" itemprop="url">移动端页面开发学习笔记</a></h1>
         
 
         <div class="post-meta">
@@ -520,391 +787,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-12-22T10:30:07+08:00">
-                2017-12-22
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>参考链接：<a href="https://segmentfault.com/q/1010000000397925" target="_blank" rel="noopener">使用CSS修改HTML5 input placeholder颜色</a></p>
-<p><em><em>css方式</em></em></p>
-<p>WebKit和Blink（Safari,Google Chrome, Opera15+）使用伪元素：</p>
-<p><code>::-webkit-input-placeholder</code></p>
-<p>Mozilla Firefox 4-18使用伪类</p>
-<p><code>:-moz-placeholder</code></p>
-<p>Mozilla Firefox 19+ 使用伪元素</p>
-<p><code>::-moz-placeholder</code></p>
-<p>IE10使用伪类</p>
-<p><code>:-ms-input-placeholder</code></p>
-<p>例子：</p>
-<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">input</span><span class="selector-pseudo">::-webkit-input-placeholder</span>, <span class="selector-tag">textarea</span><span class="selector-pseudo">::-webkit-input-placeholder</span> &#123;</span><br><span class="line">    <span class="attribute">color</span>:    <span class="number">#666</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-tag">input</span><span class="selector-pseudo">:-moz-placeholder</span>, <span class="selector-tag">textarea</span><span class="selector-pseudo">:-moz-placeholder</span> &#123;</span><br><span class="line">    <span class="attribute">color</span>:    <span class="number">#666</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-tag">input</span><span class="selector-pseudo">::-moz-placeholder</span>, <span class="selector-tag">textarea</span><span class="selector-pseudo">::-moz-placeholder</span> &#123;</span><br><span class="line">    <span class="attribute">color</span>:    <span class="number">#666</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-tag">input</span><span class="selector-pseudo">:-ms-input-placeholder</span>, <span class="selector-tag">textarea</span><span class="selector-pseudo">:-ms-input-placeholder</span> &#123;</span><br><span class="line">    <span class="attribute">color</span>:    <span class="number">#666</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p><em><em>js方式</em></em></p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br></pre></td><td class="code"><pre><span class="line">setPlaceholderColor: <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="comment">/* jqury版</span></span><br><span class="line"><span class="comment">    $('[placeholder]').focus(function() &#123;</span></span><br><span class="line"><span class="comment">        var input = $(this);</span></span><br><span class="line"><span class="comment">        if (input.val() == input.attr('placeholder')) &#123;</span></span><br><span class="line"><span class="comment">            input.val('');</span></span><br><span class="line"><span class="comment">            input.removeClass('placeholder');</span></span><br><span class="line"><span class="comment">        &#125;</span></span><br><span class="line"><span class="comment">    &#125;).blur(function() &#123;</span></span><br><span class="line"><span class="comment">        var input = $(this);</span></span><br><span class="line"><span class="comment">        if (input.val() == '' || input.val() == input.attr('placeholder')) &#123;</span></span><br><span class="line"><span class="comment">            input.addClass('placeholder');</span></span><br><span class="line"><span class="comment">            input.val(input.attr('placeholder'));</span></span><br><span class="line"><span class="comment">        &#125;</span></span><br><span class="line"><span class="comment">    &#125;).blur();</span></span><br><span class="line"><span class="comment">    $('[placeholder]').parents('form').submit(function() &#123;</span></span><br><span class="line"><span class="comment">        $(this).find('[placeholder]').each(function() &#123;</span></span><br><span class="line"><span class="comment">            var input = $(this);</span></span><br><span class="line"><span class="comment">            if (input.val() == input.attr('placeholder')) &#123;</span></span><br><span class="line"><span class="comment">                input.val('');</span></span><br><span class="line"><span class="comment">            &#125;</span></span><br><span class="line"><span class="comment">        &#125;)</span></span><br><span class="line"><span class="comment">    &#125;);</span></span><br><span class="line"><span class="comment">    */</span></span><br><span class="line">    <span class="comment">// 原生js</span></span><br><span class="line">    <span class="keyword">var</span> inputList = <span class="built_in">document</span>.querySelectorAll(<span class="string">'[placeholder]'</span>);</span><br><span class="line">    <span class="keyword">var</span> formList = <span class="keyword">new</span> <span class="built_in">Set</span>();</span><br><span class="line">    inputList.forEach(<span class="function"><span class="keyword">function</span>(<span class="params">v,i</span>)</span>&#123;</span><br><span class="line">        v.addEventListener(<span class="string">'focus'</span>, <span class="function"><span class="keyword">function</span>(<span class="params">evt</span>)</span>&#123;</span><br><span class="line">            <span class="keyword">var</span> input = evt.target;</span><br><span class="line">            <span class="keyword">if</span> (input.value == input.placeholder) &#123;</span><br><span class="line">                input.value = <span class="string">''</span>;</span><br><span class="line">                input.classList.remove(<span class="string">'placeholder'</span>);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;);</span><br><span class="line">        v.addEventListener(<span class="string">'blur'</span>, <span class="function"><span class="keyword">function</span>(<span class="params">evt</span>)</span>&#123;</span><br><span class="line">            <span class="keyword">var</span> input = evt.target;</span><br><span class="line">            <span class="keyword">if</span> (input.value == <span class="string">''</span> || input.value == input.placeholder) &#123;</span><br><span class="line">                input.classList.add(<span class="string">'placeholder'</span>);</span><br><span class="line">                input.value = input.placeholder;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;)</span><br><span class="line">        v.blur();</span><br><span class="line">        <span class="keyword">var</span> parent = v.parentNode;</span><br><span class="line">        <span class="keyword">while</span> (parent.tagName !== <span class="string">'FORM'</span> &amp;&amp; parent.tagName !== <span class="string">'BODY'</span>) &#123;</span><br><span class="line">            parent = parent.parentNode;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (parent.tagName === <span class="string">'FORM'</span>) &#123;</span><br><span class="line">            formList.add(parent);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;)</span><br><span class="line">    formList.forEach(<span class="function"><span class="keyword">function</span>(<span class="params">form</span>)</span>&#123;</span><br><span class="line">        form.addEventListener(<span class="string">'submit'</span>, <span class="function"><span class="keyword">function</span>(<span class="params">evt</span>)</span>&#123;</span><br><span class="line">            evt.target.querySelectorAll(<span class="string">'[placeholder]'</span>).forEach(<span class="function"><span class="keyword">function</span>(<span class="params">input</span>)</span>&#123;</span><br><span class="line">                <span class="keyword">if</span> (input.value == input.placeholder) &#123;</span><br><span class="line">                    input.value = <span class="string">''</span>;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;)</span><br><span class="line">        &#125;)</span><br><span class="line">    &#125;)</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://heguichuan.github.io/2017/12/14/nvm学习笔记/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="heguichuan">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Go Hiking">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/12/14/nvm学习笔记/" itemprop="url">nvm学习笔记</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-12-14T14:12:42+08:00">
-                2017-12-14
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="nodejs版本管理工具——nvm学习笔记"><a href="#nodejs版本管理工具——nvm学习笔记" class="headerlink" title="nodejs版本管理工具——nvm学习笔记"></a>nodejs版本管理工具——nvm学习笔记</h1><h2 id="windows版本"><a href="#windows版本" class="headerlink" title="windows版本"></a>windows版本</h2><p><em><em>下载安装：</em></em><a href="https://github.com/coreybutler/nvm-windows" target="_blank" rel="noopener">地址</a>，windows下直接安装。</p>
-<p><em><em>使用：</em></em></p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#常用命令</span></span><br><span class="line">nvm list <span class="comment">#列出已安装版本</span></span><br><span class="line">nvm list available <span class="comment">#列出可安装版本</span></span><br><span class="line">nvm install &lt;version&gt; <span class="comment">#安装指定版本号</span></span><br><span class="line">nvm uninstall &lt;version&gt; <span class="comment">#安装指定版本号</span></span><br><span class="line">nvm use &lt;version&gt; <span class="comment">#使用指定版本号</span></span><br><span class="line">node -v <span class="comment">#查看当前node版本号</span></span><br></pre></td></tr></table></figure>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#帮助</span></span><br><span class="line">E:\360Downloads\nvm-setup&gt;nvm</span><br><span class="line"></span><br><span class="line">Running version 1.1.5.</span><br><span class="line"></span><br><span class="line">Usage:</span><br><span class="line"></span><br><span class="line">  nvm arch                     : Show <span class="keyword">if</span> node is running <span class="keyword">in</span> 32 or 64 bit mode.</span><br><span class="line">  nvm install &lt;version&gt; [arch] : The version can be a node.js version or <span class="string">"latest</span></span><br><span class="line"><span class="string">"</span> <span class="keyword">for</span> the latest stable version.</span><br><span class="line">                                 Optionally specify whether to install the 32 or</span><br><span class="line"> 64 bit version (defaults to system arch).</span><br><span class="line">                                 Set [arch] to <span class="string">"all"</span> to install 32 AND 64 bit ve</span><br><span class="line">rsions.</span><br><span class="line">                                 Add --insecure to the end of this <span class="built_in">command</span> to by</span><br><span class="line">pass SSL validation of the remote download server.</span><br><span class="line">  nvm list [available]         : List the node.js installations. Type <span class="string">"available</span></span><br><span class="line"><span class="string">"</span> at the end to see what can be installed. Aliased as ls.</span><br><span class="line">  nvm on                       : Enable node.js version management.</span><br><span class="line">  nvm off                      : Disable node.js version management.</span><br><span class="line">  nvm proxy [url]              : Set a proxy to use <span class="keyword">for</span> downloads. Leave [url] b</span><br><span class="line">lank to see the current proxy.</span><br><span class="line">                                 Set [url] to <span class="string">"none"</span> to remove the proxy.</span><br><span class="line">  nvm node_mirror [url]        : Set the node mirror. Defaults to https://nodejs</span><br><span class="line">.org/dist/. Leave [url] blank to use default url.</span><br><span class="line">  nvm npm_mirror [url]         : Set the npm mirror. Defaults to https://github.</span><br><span class="line">com/npm/npm/archive/. Leave [url] blank to default url.</span><br><span class="line">  nvm uninstall &lt;version&gt;      : The version must be a specific version.</span><br><span class="line">  nvm use [version] [arch]     : Switch to use the specified version. Optionally</span><br><span class="line"> specify 32/64bit architecture.</span><br><span class="line">                                 nvm use &lt;arch&gt; will <span class="built_in">continue</span> using the selected</span><br><span class="line"> version, but switch to 32/64 bit mode.</span><br><span class="line">  nvm root [path]              : Set the directory <span class="built_in">where</span> nvm should store differ</span><br><span class="line">ent versions of node.js.</span><br><span class="line">                                 If &lt;path&gt; is not <span class="built_in">set</span>, the current root will be</span><br><span class="line">displayed.</span><br><span class="line">  nvm version                  : Displays the current running version of nvm <span class="keyword">for</span></span><br><span class="line"> Windows. Aliased as v.</span><br></pre></td></tr></table></figure>
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://heguichuan.github.io/2017/12/13/手机使用电脑代理访问内网的姿势/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="heguichuan">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Go Hiking">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/12/13/手机使用电脑代理访问内网的姿势/" itemprop="url">手机使用电脑代理访问内网的姿势（实现手机修改host文件的效果）</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-12-13T16:03:53+08:00">
-                2017-12-13
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="手机使用电脑代理访问内网的姿势（实现手机修改host文件的效果）"><a href="#手机使用电脑代理访问内网的姿势（实现手机修改host文件的效果）" class="headerlink" title="手机使用电脑代理访问内网的姿势（实现手机修改host文件的效果）"></a>手机使用电脑代理访问内网的姿势（实现手机修改host文件的效果）</h1><h2 id="问题起源"><a href="#问题起源" class="headerlink" title="问题起源"></a>问题起源</h2><blockquote>
-<p>passport的h5登录页面出现了一次mate9手机浏览器兼容问题，一般情况下手机无法修改host，以前没找到使用mate9在测试环境访问的方法，问题一直拖了很久没解决，直到某一天从同事那里知道了使用电脑代理的方式可以访问内网的网站，实现修改手机host文件的效果。</p>
-</blockquote>
-<p><strong>参考链接：</strong><a href="https://www.cnblogs.com/biglion/p/5977137.html" target="_blank" rel="noopener">使用fiddler4做代理调试手机页面</a></p>
-<h2 id="具体步骤"><a href="#具体步骤" class="headerlink" title="具体步骤"></a>具体步骤</h2><ol>
-<li>需要手机通过wifi链接电脑，如果是台式电脑可以买一个外接网卡（最便宜的就可以了）。</li>
-<li>手机链接wifi后，需要给手机wifi配置代理，添加<code>主机名(就是wifi中的路由器栏的地址)</code>和<code>端口(fiddler默认监听的端口，默认8888)</code>。</li>
-<li>下载安装<a href="https://www.telerik.com/download/fiddler" target="_blank" rel="noopener">fiddler4</a>，具体配置见<a href="https://www.cnblogs.com/biglion/p/5977137.html" target="_blank" rel="noopener">参考链接</a>。</li>
-<li>电脑修改host，手机访问域名体验效果。</li>
-</ol>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://heguichuan.github.io/2017/12/13/移动端页面开发笔记/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="heguichuan">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Go Hiking">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/12/13/移动端页面开发笔记/" itemprop="url">移动端页面开发学习笔记</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-12-13T15:04:34+08:00">
-                2017-12-13
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-01-12T21:59:37+08:00">
+                2018-01-12
               </time>
             
 
@@ -1007,7 +891,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://heguichuan.github.io/2017/12/12/JS表单序列号与反序列化/">
+    <link itemprop="mainEntityOfPage" href="https://heguichuan.github.io/2017/11/15/手机使用电脑代理访问内网的姿势/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="heguichuan">
@@ -1026,7 +910,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2017/12/12/JS表单序列号与反序列化/" itemprop="url">JS表单序列号与反序列化</a></h1>
+                <a class="post-title-link" href="/2017/11/15/手机使用电脑代理访问内网的姿势/" itemprop="url">手机使用电脑代理访问内网的姿势（实现手机修改host文件的效果）</a></h1>
         
 
         <div class="post-meta">
@@ -1038,8 +922,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-12-12T17:19:29+08:00">
-                2017-12-12
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-11-15T02:51:32+08:00">
+                2017-11-15
               </time>
             
 
@@ -1078,23 +962,17 @@
       
         
           
-            <h1 id="JS表单序列号与反序列化"><a href="#JS表单序列号与反序列化" class="headerlink" title="JS表单序列号与反序列化"></a>JS表单序列号与反序列化</h1><blockquote>
-<p><code>jQuery</code>有这两个方法 <code>.serializeArray()</code> 与<code>.serialize()</code>.</p>
-<p><code>.serializeArray()</code>返回: <code>Array</code></p>
-<p>描述: 将用作提交的表单元素的值编译成拥有<code>name</code>和<code>value</code>对象组成的数组。例如<code>[ { name: a value: 1 }, { name: b value: 2 },…]</code></p>
-<p>一般用于<code>Ajax POST</code></p>
-<p><code>.serialize()</code>返回: <code>String</code></p>
-<p>描述: 将用作提交的表单元素的值编译成字符串。如：<code>single=Single&amp;multiple=Multiple&amp;multiple=Multiple3&amp;check=check2&amp;radio=radio1</code></p>
-<p>一般用于<code>GET</code></p>
+            <h1 id="手机使用电脑代理访问内网的姿势（实现手机修改host文件的效果）"><a href="#手机使用电脑代理访问内网的姿势（实现手机修改host文件的效果）" class="headerlink" title="手机使用电脑代理访问内网的姿势（实现手机修改host文件的效果）"></a>手机使用电脑代理访问内网的姿势（实现手机修改host文件的效果）</h1><h2 id="问题起源"><a href="#问题起源" class="headerlink" title="问题起源"></a>问题起源</h2><blockquote>
+<p>passport的h5登录页面出现了一次mate9手机浏览器兼容问题，一般情况下手机无法修改host，以前没找到使用mate9在测试环境访问的方法，问题一直拖了很久没解决，直到某一天从同事那里知道了使用电脑代理的方式可以访问内网的网站，实现修改手机host文件的效果。</p>
 </blockquote>
-<p>主要介绍<code>.serializeArray()</code>方法。</p>
-<p>这个方法很方便，但是在多选的情况先会出现一些问题：</p>
-<p>比如<code>select,checkbox</code>。此时返回的是<code>[{multiple:Multiple},{multiple:Multiple3},{check:check1}},{check:check2}]</code></p>
-<p>而我们期望的是<code>[{multiple:[Multiple,Multiple3]},{check:[check1,check2]}]</code></p>
-<p>而且我们通过<code>ajax</code>提交的请求数据根对象期望是<code>json</code>对象而不是直接的<code>json</code>数组。</p>
-<p>针对上面说的情形我们写个工具方法用于处理：</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 序列化表单元素为JSON对象</span></span><br><span class="line"><span class="comment"> * @param form          Form表单id或表单jquery DOM对象</span></span><br><span class="line"><span class="comment"> * @returns &#123;&#125;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">var</span> serialize = <span class="function"><span class="keyword">function</span>(<span class="params">form</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">var</span> $form = (<span class="keyword">typeof</span>(form)==<span class="string">"string"</span> ? $(<span class="string">"#"</span>+form) : form);</span><br><span class="line">    <span class="keyword">var</span> dataArray =  $form.serializeArray();</span><br><span class="line">    <span class="keyword">var</span> result=&#123;&#125;;</span><br><span class="line">    $(dataArray).each(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">        <span class="comment">//如果在结果对象中存在这个值，那么就说明是多选的情形。</span></span><br><span class="line">        <span class="keyword">if</span>(result[<span class="keyword">this</span>.name])&#123;</span><br><span class="line">            <span class="comment">//多选的情形，值是数组，直接push</span></span><br><span class="line">            result[<span class="keyword">this</span>.name].push(<span class="keyword">this</span>.value);</span><br><span class="line">        &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">            <span class="comment">//获取当前表单控件元素</span></span><br><span class="line">            <span class="keyword">var</span> element = $form.find(<span class="string">"[name='"</span>+ <span class="keyword">this</span>.name +<span class="string">"']"</span>)[<span class="number">0</span>];</span><br><span class="line">            <span class="comment">//获取当前控件类型</span></span><br><span class="line">            <span class="keyword">var</span> type = ( element.type || element.nodeName ).toLowerCase();</span><br><span class="line">            <span class="comment">//如果控件类型为多选那么值就是数组形式，否则就是单值形式。</span></span><br><span class="line">            result[<span class="keyword">this</span>.name] = (<span class="regexp">/^(select-multiple|checkbox)$/i</span>).test(type) ? [<span class="keyword">this</span>.value] : <span class="keyword">this</span>.value;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;);</span><br><span class="line">    <span class="keyword">return</span> result;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 通过js设置表单值</span></span><br><span class="line"><span class="comment"> * @param form          Form表单id或表单jquery DOM对象</span></span><br><span class="line"><span class="comment"> * @param data          json对象，多选时为数组</span></span><br><span class="line"><span class="comment"> * 代码实现参考此开源项目https://github.com/kflorence/jquery-deserialize/</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">var</span> deserialize = <span class="function"><span class="keyword">function</span>(<span class="params">form,data</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">var</span> rcheck = <span class="regexp">/^(?:radio|checkbox)$/i</span>,</span><br><span class="line">        rselect = <span class="regexp">/^(?:option|select-one|select-multiple)$/i</span>,</span><br><span class="line">        rvalue = <span class="regexp">/^(?:button|color|date|datetime|datetime-local|email|hidden|month|number|password|range|reset|search|submit|tel|text|textarea|time|url|week)$/i</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">var</span> $form = (<span class="keyword">typeof</span>(form)==<span class="string">"string"</span> ? $(<span class="string">"#"</span>+form) : form);</span><br><span class="line"></span><br><span class="line">    <span class="comment">//得到所有表单元素</span></span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">getElements</span>(<span class="params"> elements </span>) </span>&#123;</span><br><span class="line">        <span class="comment">//此处elements为jquery对象。这个map函数使用来便利elements数组的.如存在多个form表单，则便利多个form表单</span></span><br><span class="line">        <span class="keyword">return</span> elements.map(<span class="function"><span class="keyword">function</span>(<span class="params">index, domElemen</span>) </span>&#123;</span><br><span class="line">            <span class="comment">//this代表form表单，this.elements获取表单中的DOM数组. jQuery.makeArray 转换一个类似数组的对象成为真正的JavaScript数组。</span></span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">this</span>.elements ? jQuery.makeArray( <span class="keyword">this</span>.elements ) : <span class="keyword">this</span>;</span><br><span class="line">            <span class="comment">//过滤不启用的选项</span></span><br><span class="line">        &#125;).filter( <span class="string">":input:not(:disabled)"</span> ).get();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//把表单元素转为json对象</span></span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">elementsToJson</span>(<span class="params"> elements </span>) </span>&#123;</span><br><span class="line">        <span class="keyword">var</span> current,elementsByName = &#123;&#125;;</span><br><span class="line">        <span class="comment">//elementsByName对象为&#123;控件名：控件元素或控件元素数组&#125;</span></span><br><span class="line">        jQuery.each( elements, <span class="function"><span class="keyword">function</span>(<span class="params"> i, element </span>) </span>&#123;</span><br><span class="line">            current = elementsByName[ element.name ];</span><br><span class="line">            elementsByName[ element.name ] = current === <span class="literal">undefined</span> ? element :</span><br><span class="line">                <span class="comment">//如果已经是一个数组了，那么就添加，否则构造一个数组</span></span><br><span class="line">                ( jQuery.isArray( current ) ? current.concat( element ) : [ current, element ] );</span><br><span class="line">        &#125;);</span><br><span class="line">        <span class="keyword">return</span> elementsByName;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">var</span> elementsJson = elementsToJson(getElements($form));</span><br><span class="line"><span class="comment">//data是一个对象</span></span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">var</span> key <span class="keyword">in</span> data)&#123;</span><br><span class="line">        <span class="keyword">var</span> val = data[key];</span><br><span class="line">        <span class="keyword">var</span> dataArr = [];<span class="comment">//更具数据直接构造一个jQUery序列化后的数组形式。</span></span><br><span class="line">        <span class="comment">//判断值是否为数组</span></span><br><span class="line">        <span class="keyword">if</span>( $.isArray(val))&#123;</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">var</span> i= <span class="number">0</span>,v;v=val[i++];)&#123;</span><br><span class="line">                <span class="comment">//是数组那么就变成多个对象形式</span></span><br><span class="line">                dataArr.push(&#123;<span class="attr">name</span>:key,<span class="attr">value</span>:v&#125;);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125; <span class="keyword">else</span>&#123;</span><br><span class="line">            <span class="comment">//不是数组直接构造</span></span><br><span class="line">            dataArr.push(&#123;<span class="attr">name</span>:key,<span class="attr">value</span>:val&#125;);</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        <span class="comment">//根据数据构造的这个数组进行操作</span></span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">var</span> m= <span class="number">0</span>,vObj;vObj=dataArr[m++];)&#123;</span><br><span class="line">            <span class="keyword">var</span> element;</span><br><span class="line">            <span class="comment">//如果表单中无元素则跳过</span></span><br><span class="line">            <span class="keyword">if</span> ( !( element = elementsJson[vObj.name] ) ) &#123;</span><br><span class="line">                <span class="keyword">continue</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="comment">//判断元素是否为数组,暂时获取第一个元素，后面会有迭代赋值。</span></span><br><span class="line">            <span class="keyword">var</span> type = element.length?element[<span class="number">0</span>]:element;</span><br><span class="line">            <span class="comment">//元素类型</span></span><br><span class="line">            type = ( type.type || type.nodeName ).toLowerCase();</span><br><span class="line"></span><br><span class="line">            <span class="keyword">var</span> property = <span class="literal">null</span>;</span><br><span class="line">            <span class="comment">//是单值类型</span></span><br><span class="line">            <span class="keyword">if</span> ( rvalue.test( type ) ) &#123;</span><br><span class="line">                element.value = (<span class="keyword">typeof</span>(vObj.value)==<span class="string">"undefined"</span> || vObj.value==<span class="literal">null</span>)?<span class="string">""</span>:vObj.value;</span><br><span class="line">                <span class="comment">//checkbox</span></span><br><span class="line">            &#125; <span class="keyword">else</span> <span class="keyword">if</span> ( rcheck.test( type ) ) &#123;</span><br><span class="line">                property = <span class="string">"checked"</span>;</span><br><span class="line">    <span class="comment">//select</span></span><br><span class="line">            &#125; <span class="keyword">else</span> <span class="keyword">if</span> ( rselect.test( type ) ) &#123;</span><br><span class="line">                property = <span class="string">"selected"</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="comment">//判断类型是否为多选</span></span><br><span class="line">            <span class="keyword">if</span>(property) &#123;</span><br><span class="line">                <span class="comment">//如果是，则迭代多选的元素赋值</span></span><br><span class="line">                <span class="keyword">for</span>(<span class="keyword">var</span> n= <span class="number">0</span>,e;e=element[n++];)&#123;</span><br><span class="line">                    <span class="keyword">if</span>(e.value==vObj.value)&#123;</span><br><span class="line">                        <span class="comment">//设置选中</span></span><br><span class="line">                        e[property] = <span class="literal">true</span>;</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p><strong>参考链接：</strong><a href="https://www.cnblogs.com/biglion/p/5977137.html" target="_blank" rel="noopener">使用fiddler4做代理调试手机页面</a></p>
+<h2 id="具体步骤"><a href="#具体步骤" class="headerlink" title="具体步骤"></a>具体步骤</h2><ol>
+<li>需要手机通过wifi链接电脑，如果是台式电脑可以买一个外接网卡（最便宜的就可以了）。</li>
+<li>手机链接wifi后，需要给手机wifi配置代理，添加<code>主机名(就是wifi中的路由器栏的地址)</code>和<code>端口(fiddler默认监听的端口，默认8888)</code>。</li>
+<li>下载安装<a href="https://www.telerik.com/download/fiddler" target="_blank" rel="noopener">fiddler4</a>，具体配置见<a href="https://www.cnblogs.com/biglion/p/5977137.html" target="_blank" rel="noopener">参考链接</a>。</li>
+<li>电脑修改host，手机访问域名体验效果。</li>
+</ol>
+
           
         
       
@@ -1142,7 +1020,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://heguichuan.github.io/2017/11/10/hexo使用笔记/">
+    <link itemprop="mainEntityOfPage" href="https://heguichuan.github.io/2017/05/12/nvm学习笔记/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="heguichuan">
@@ -1161,7 +1039,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2017/11/10/hexo使用笔记/" itemprop="url">hexo使用笔记</a></h1>
+                <a class="post-title-link" href="/2017/05/12/nvm学习笔记/" itemprop="url">nvm学习笔记</a></h1>
         
 
         <div class="post-meta">
@@ -1173,8 +1051,130 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-11-10T15:45:48+08:00">
-                2017-11-10
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-05-12T23:59:37+08:00">
+                2017-05-12
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="nodejs版本管理工具——nvm学习笔记"><a href="#nodejs版本管理工具——nvm学习笔记" class="headerlink" title="nodejs版本管理工具——nvm学习笔记"></a>nodejs版本管理工具——nvm学习笔记</h1><h2 id="windows版本"><a href="#windows版本" class="headerlink" title="windows版本"></a>windows版本</h2><p><em><em>下载安装：</em></em><a href="https://github.com/coreybutler/nvm-windows" target="_blank" rel="noopener">地址</a>，windows下直接安装。</p>
+<p><em><em>使用：</em></em></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#常用命令</span></span><br><span class="line">nvm list <span class="comment">#列出已安装版本</span></span><br><span class="line">nvm list available <span class="comment">#列出可安装版本</span></span><br><span class="line">nvm install &lt;version&gt; <span class="comment">#安装指定版本号</span></span><br><span class="line">nvm uninstall &lt;version&gt; <span class="comment">#安装指定版本号</span></span><br><span class="line">nvm use &lt;version&gt; <span class="comment">#使用指定版本号</span></span><br><span class="line">node -v <span class="comment">#查看当前node版本号</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#帮助</span></span><br><span class="line">E:\360Downloads\nvm-setup&gt;nvm</span><br><span class="line"></span><br><span class="line">Running version 1.1.5.</span><br><span class="line"></span><br><span class="line">Usage:</span><br><span class="line"></span><br><span class="line">  nvm arch                     : Show <span class="keyword">if</span> node is running <span class="keyword">in</span> 32 or 64 bit mode.</span><br><span class="line">  nvm install &lt;version&gt; [arch] : The version can be a node.js version or <span class="string">"latest</span></span><br><span class="line"><span class="string">"</span> <span class="keyword">for</span> the latest stable version.</span><br><span class="line">                                 Optionally specify whether to install the 32 or</span><br><span class="line"> 64 bit version (defaults to system arch).</span><br><span class="line">                                 Set [arch] to <span class="string">"all"</span> to install 32 AND 64 bit ve</span><br><span class="line">rsions.</span><br><span class="line">                                 Add --insecure to the end of this <span class="built_in">command</span> to by</span><br><span class="line">pass SSL validation of the remote download server.</span><br><span class="line">  nvm list [available]         : List the node.js installations. Type <span class="string">"available</span></span><br><span class="line"><span class="string">"</span> at the end to see what can be installed. Aliased as ls.</span><br><span class="line">  nvm on                       : Enable node.js version management.</span><br><span class="line">  nvm off                      : Disable node.js version management.</span><br><span class="line">  nvm proxy [url]              : Set a proxy to use <span class="keyword">for</span> downloads. Leave [url] b</span><br><span class="line">lank to see the current proxy.</span><br><span class="line">                                 Set [url] to <span class="string">"none"</span> to remove the proxy.</span><br><span class="line">  nvm node_mirror [url]        : Set the node mirror. Defaults to https://nodejs</span><br><span class="line">.org/dist/. Leave [url] blank to use default url.</span><br><span class="line">  nvm npm_mirror [url]         : Set the npm mirror. Defaults to https://github.</span><br><span class="line">com/npm/npm/archive/. Leave [url] blank to default url.</span><br><span class="line">  nvm uninstall &lt;version&gt;      : The version must be a specific version.</span><br><span class="line">  nvm use [version] [arch]     : Switch to use the specified version. Optionally</span><br><span class="line"> specify 32/64bit architecture.</span><br><span class="line">                                 nvm use &lt;arch&gt; will <span class="built_in">continue</span> using the selected</span><br><span class="line"> version, but switch to 32/64 bit mode.</span><br><span class="line">  nvm root [path]              : Set the directory <span class="built_in">where</span> nvm should store differ</span><br><span class="line">ent versions of node.js.</span><br><span class="line">                                 If &lt;path&gt; is not <span class="built_in">set</span>, the current root will be</span><br><span class="line">displayed.</span><br><span class="line">  nvm version                  : Displays the current running version of nvm <span class="keyword">for</span></span><br><span class="line"> Windows. Aliased as v.</span><br></pre></td></tr></table></figure>
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://heguichuan.github.io/2017/03/13/hexo使用笔记/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="heguichuan">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Go Hiking">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/03/13/hexo使用笔记/" itemprop="url">hexo使用笔记</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-03-13T20:46:25+08:00">
+                2017-03-13
               </time>
             
 
@@ -1349,7 +1349,7 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>
@@ -1367,7 +1367,7 @@
 
 
 
-  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
 
 
 
@@ -1466,13 +1466,6 @@
 
   
   
-
-
-  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
-
-  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
-
-
 
   
 
