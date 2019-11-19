@@ -232,6 +232,170 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://heguichuan.github.io/2019/11/19/web-worker使用教程/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="heguichuan">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Go Hiking">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/11/19/web-worker使用教程/" itemprop="url">Web Worker 使用教程</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-11-19T17:17:11+08:00">
+                2019-11-19
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="Web-Worker-使用教程"><a href="#Web-Worker-使用教程" class="headerlink" title="Web Worker 使用教程"></a>Web Worker 使用教程</h1><h2 id="一、参考链接"><a href="#一、参考链接" class="headerlink" title="一、参考链接"></a>一、参考链接</h2><p><a href="http://www.ruanyifeng.com/blog/2018/07/web-worker.html" target="_blank" rel="noopener">软一峰 Web Worker 使用教程</a></p>
+<h2 id="二、注意事项"><a href="#二、注意事项" class="headerlink" title="二、注意事项"></a>二、注意事项</h2><ol>
+<li><strong>同源限制</strong> ， 分配给 Worker 线程运行的脚本文件，必须与主线程的脚本文件同源。</li>
+<li><strong>DOM 限制</strong> ， Worker 线程所在的全局对象，与主线程不一样，无法读取主线程所在网页的 DOM 对象，也无法使用<code>document</code>、<code>window</code>、<code>parent</code>这些对象。但是，Worker 线程可以<code>navigator</code>对象和<code>location</code>对象。</li>
+<li><strong>通信联系</strong> ， Worker 线程和主线程不在同一个上下文环境，它们不能直接通信，必须通过消息完成。</li>
+<li><strong>脚本限制</strong> ， Worker 线程不能执行<code>alert()</code>方法和<code>confirm()</code>方法，但可以使用 <code>XMLHttpRequest</code>对象发出<code>AJAX</code>请求。</li>
+<li><strong>文件限制</strong> ， Worker 线程无法读取本地文件，即不能打开本机的文件系统（<code>file://</code>），它所加载的脚本，必须来自网络。</li>
+</ol>
+<h2 id="三、基本用法"><a href="#三、基本用法" class="headerlink" title="三、基本用法"></a>三、基本用法</h2><h3 id="主线程"><a href="#主线程" class="headerlink" title="主线程"></a>主线程</h3><p>采用<code>new</code>命令，调用<code>Worker()</code>构造函数，新建一个 Worker 线程。 构造函数的参数是一个脚本文件 。如果下载没有成功（比如 404 错误），Worker 就会默默地失败。</p>
+<blockquote>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">&gt; <span class="keyword">var</span> worker = <span class="keyword">new</span> Worker(<span class="string">"work.js"</span>);</span><br><span class="line">&gt;</span><br><span class="line">&gt; worker.onerror(<span class="function"><span class="keyword">function</span>(<span class="params">event</span>) </span>&#123;</span><br><span class="line">&gt;     doSomething();</span><br><span class="line">&gt; &#125;);</span><br><span class="line">&gt; worker.postMessage(<span class="string">"Hello World"</span>);</span><br><span class="line">&gt; worker.postMessage(&#123; <span class="attr">method</span>: <span class="string">"echo"</span>, <span class="attr">args</span>: [<span class="string">"Work"</span>] &#125;);</span><br><span class="line">&gt;</span><br><span class="line">&gt; worker.onmessage = <span class="function"><span class="keyword">function</span>(<span class="params">event</span>) </span>&#123;</span><br><span class="line">&gt;     <span class="built_in">console</span>.log(<span class="string">"Received message "</span> + event.data);</span><br><span class="line">&gt;     doSomething();</span><br><span class="line">&gt; &#125;;</span><br><span class="line">&gt;</span><br><span class="line">&gt; worker.terminate();</span><br><span class="line">&gt;</span><br></pre></td></tr></table></figure>
+</blockquote>
+<h3 id="Worker-线程"><a href="#Worker-线程" class="headerlink" title="Worker 线程"></a>Worker 线程</h3><p>Worker 线程内部需要有一个监听函数，监听<code>message</code>事件。 <code>self</code>代表子线程自身，即子线程的全局对象</p>
+<blockquote>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&gt; self.addEventListener(</span><br><span class="line">&gt;     <span class="string">"message"</span>,</span><br><span class="line">&gt;     <span class="function"><span class="keyword">function</span>(<span class="params">e</span>) </span>&#123;</span><br><span class="line">&gt;         self.postMessage(<span class="string">"You said: "</span> + e.data);</span><br><span class="line">&gt;     &#125;,</span><br><span class="line">&gt;     <span class="literal">false</span></span><br><span class="line">&gt; );</span><br><span class="line">&gt; <span class="comment">// 也可以使用self.onmessage</span></span><br><span class="line">&gt; <span class="comment">// self.close() 用于在 Worker 内部关闭自身。</span></span><br><span class="line">&gt;</span><br></pre></td></tr></table></figure>
+</blockquote>
+<p>Worker 内部如果要加载其他脚本，有一个专门的方法<code>importScripts()</code>。</p>
+<blockquote>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&gt; importScripts(<span class="string">"script1.js"</span>);</span><br><span class="line">&gt; importScripts(<span class="string">"script1.js"</span>, <span class="string">"script2.js"</span>);</span><br><span class="line">&gt;</span><br></pre></td></tr></table></figure>
+</blockquote>
+<h3 id="通信"><a href="#通信" class="headerlink" title="通信"></a>通信</h3><p>主线程与 Worker 之间的通信内容，可以是文本，也可以是对象。需要注意的是，这种通信是拷贝关系，即是传值而不是传址，Worker 对通信内容的修改，不会影响到主线程。</p>
+<h3 id="二进制数据"><a href="#二进制数据" class="headerlink" title="二进制数据"></a>二进制数据</h3><p>拷贝方式发送二进制数据，会造成性能问题 。 JavaScript 允许主线程把二进制数据直接转移给子线程，但是一旦转移，主线程就无法再使用这些二进制数据了 。这种转移数据的方法，叫做<a href="http://www.w3.org/html/wg/drafts/html/master/infrastructure.html#transferable-objects" target="_blank" rel="noopener">Transferable Objects</a>。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Transferable Objects 格式</span></span><br><span class="line">worker.postMessage(arrayBuffer, [arrayBuffer]);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 例子</span></span><br><span class="line"><span class="keyword">var</span> ab = <span class="keyword">new</span> <span class="built_in">ArrayBuffer</span>(<span class="number">1</span>);</span><br><span class="line">worker.postMessage(ab, [ab]);</span><br></pre></td></tr></table></figure>
+<h3 id="API"><a href="#API" class="headerlink" title="API"></a>API</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> worker = <span class="keyword">new</span> Worker(jsUrl, options);</span><br></pre></td></tr></table></figure>
+<ul>
+<li>worker.onerror：指定 error 事件的监听函数。</li>
+<li>worker.onmessage：指定 message 事件的监听函数，发送过来的数据在<code>Event.data</code>属性中。</li>
+<li>worker.onmessageerror：指定 messageerror 事件的监听函数。发送的数据无法序列化成字符串时，会触发这个事件。</li>
+<li>worker.postMessage()：向 Worker 线程发送消息。</li>
+<li>worker.terminate()：立即终止 Worker 线程。</li>
+<li>self.name： Worker 的名字。该属性只读，由构造函数指定。</li>
+<li>self.onmessage：指定<code>message</code>事件的监听函数。</li>
+<li>self.onmessageerror：指定 messageerror 事件的监听函数。发送的数据无法序列化成字符串时，会触发这个事件。</li>
+<li>self.close()：关闭 Worker 线程。</li>
+<li>self.postMessage()：向产生这个 Worker 线程发送消息。</li>
+<li>self.importScripts()：加载 JS 脚本。</li>
+</ul>
+<h2 id="四、worker-farm"><a href="#四、worker-farm" class="headerlink" title="四、worker-farm"></a>四、worker-farm</h2><p>在项目中使用过一次<a href="https://www.npmjs.com/package/worker-farm" target="_blank" rel="noopener">worker-farm</a>，感觉还是比较简单。</p>
+<p>自己使用体验，放到 callback 里面的代码是不会多线程执行的，child.js 里面定义的代码才是真的多线程异步执行。</p>
+<p><em>child.js</em>:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">module</span>.exports = <span class="function"><span class="keyword">function</span>(<span class="params">inp, callback</span>) </span>&#123;</span><br><span class="line">    callback(<span class="literal">null</span>, inp + <span class="string">" BAR ("</span> + process.pid + <span class="string">")"</span>);</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>main file:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> workerFarm = <span class="built_in">require</span>(<span class="string">"worker-farm"</span>),</span><br><span class="line">    workers = workerFarm(<span class="built_in">require</span>.resolve(<span class="string">"./child"</span>)),</span><br><span class="line">    ret = <span class="number">0</span>;</span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; <span class="number">10</span>; i++) &#123;</span><br><span class="line">    workers(<span class="string">"#"</span> + i + <span class="string">" FOO"</span>, <span class="function"><span class="keyword">function</span>(<span class="params">err, outp</span>) </span>&#123;</span><br><span class="line">        <span class="built_in">console</span>.log(outp);</span><br><span class="line">        <span class="keyword">if</span> (++ret == <span class="number">10</span>) workerFarm.end(workers);</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>output something like the following:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#1 FOO BAR (8546)</span></span><br><span class="line"><span class="comment">#0 FOO BAR (8545)</span></span><br><span class="line"><span class="comment">#8 FOO BAR (8545)</span></span><br><span class="line"><span class="comment">#9 FOO BAR (8546)</span></span><br><span class="line"><span class="comment">#2 FOO BAR (8548)</span></span><br><span class="line"><span class="comment">#4 FOO BAR (8551)</span></span><br><span class="line"><span class="comment">#3 FOO BAR (8549)</span></span><br><span class="line"><span class="comment">#6 FOO BAR (8555)</span></span><br><span class="line"><span class="comment">#5 FOO BAR (8553)</span></span><br><span class="line"><span class="comment">#7 FOO BAR (8557)</span></span><br></pre></td></tr></table></figure>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://heguichuan.github.io/2019/02/14/浏览器本地JS计算文件MD5/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1422,7 +1586,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">9</span>
+                  <span class="site-state-item-count">10</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
