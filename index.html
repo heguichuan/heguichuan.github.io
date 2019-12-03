@@ -313,12 +313,12 @@
       
         
           
-          Centos 联网设置
+          
 背景：每次安装完centos后，无论是虚拟机或者实体机默认都无法访问网络；多次搜索解决方案后，于此总结一下。
 
-1. 以太网1.1 解决实例
+以太网解决实例
 /etc/sysconfig/network-scripts/ifcfg-enp4s0中ONBOOT修改为yes
-重启网络服务serv
+重启网络服务service network restar
           ...
           <!--noindex-->
           <div class="post-button text-center">
