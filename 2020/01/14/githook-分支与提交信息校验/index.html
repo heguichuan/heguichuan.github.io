@@ -1,0 +1,745 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="githook husky," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="Branch校验validate-branch-name 安装1npm i husky validate-branch-name --save-dev  Husky requires Node &amp;gt;= 8.6.0 and Git &amp;gt;= 2.13.2Husky version &amp;gt;= 1.0.0笔记时validate-branch-name版本为1.0.4  配置12345678910">
+<meta name="keywords" content="githook husky">
+<meta property="og:type" content="article">
+<meta property="og:title" content="githook-分支与提交信息校验">
+<meta property="og:url" content="https://heguichuan.github.io/2020/01/14/githook-分支与提交信息校验/index.html">
+<meta property="og:site_name" content="Go Hiking">
+<meta property="og:description" content="Branch校验validate-branch-name 安装1npm i husky validate-branch-name --save-dev  Husky requires Node &amp;gt;= 8.6.0 and Git &amp;gt;= 2.13.2Husky version &amp;gt;= 1.0.0笔记时validate-branch-name版本为1.0.4  配置12345678910">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2020-01-14T05:59:32.703Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="githook-分支与提交信息校验">
+<meta name="twitter:description" content="Branch校验validate-branch-name 安装1npm i husky validate-branch-name --save-dev  Husky requires Node &amp;gt;= 8.6.0 and Git &amp;gt;= 2.13.2Husky version &amp;gt;= 1.0.0笔记时validate-branch-name版本为1.0.4  配置12345678910">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+<script type="text/javascript">
+  var _hmt = _hmt || [];
+  (function() {
+    var hm = document.createElement("script");
+    hm.src = "https://hm.baidu.com/hm.js?8150d823bd5ab2c4ecfb2ab0dc6daa00";
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(hm, s);
+  })();
+</script>
+
+
+
+
+  <link rel="canonical" href="https://heguichuan.github.io/2020/01/14/githook-分支与提交信息校验/"/>
+
+
+
+
+
+  <title>githook-分支与提交信息校验 | Go Hiking</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Go Hiking</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">Explore The World</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://heguichuan.github.io/2020/01/14/githook-分支与提交信息校验/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="heguichuan">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Go Hiking">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">githook-分支与提交信息校验</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-01-14T13:57:20+08:00">
+                2020-01-14
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="Branch校验"><a href="#Branch校验" class="headerlink" title="Branch校验"></a>Branch校验</h2><p><a href="https://github.com/JsonMa/validate-branch-name" target="_blank" rel="noopener">validate-branch-name</a></p>
+<h3 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm i husky validate-branch-name --save-dev</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>Husky requires Node &gt;= 8.6.0 and Git &gt;= 2.13.2<br>Husky version &gt;= 1.0.0<br>笔记时validate-branch-name版本为1.0.4</p>
+</blockquote>
+<h3 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h3><figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">// package.json</span><br><span class="line">&#123;</span><br><span class="line">  <span class="attr">"husky"</span>: &#123;</span><br><span class="line">    <span class="attr">"hooks"</span>: &#123;</span><br><span class="line">      <span class="attr">"pre-push"</span>: <span class="string">"validate-branch-name"</span></span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="attr">"validate-branch-name"</span>: &#123;</span><br><span class="line">    <span class="attr">"pattern"</span>: <span class="string">"^(master|develop)&#123;1&#125;$|^(feature|fix|hotfix|release)\/.+$"</span>,</span><br><span class="line">    <span class="attr">"errorMsg"</span>: <span class="string">"branch format error."</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="Message校验"><a href="#Message校验" class="headerlink" title="Message校验"></a>Message校验</h2><p><a href="https://zhuanlan.zhihu.com/p/34223150" target="_blank" rel="noopener">优雅的提交你的 Git Commit Message</a></p>
+<h3 id="安装-1"><a href="#安装-1" class="headerlink" title="安装"></a>安装</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">npm install --save-dev @commitlint/&#123;cli,config-conventional&#125;</span><br><span class="line">npm install --save-dev husky</span><br></pre></td></tr></table></figure>
+<h3 id="配置-1"><a href="#配置-1" class="headerlink" title="配置"></a>配置</h3><p>支持以下格式的配置文件：<code>.commitlintrc.js</code>, <code>.commitlintrc.json</code>, or <code>.commitlintrc.yml</code> file or a <code>commitlint</code> field in <code>package.json</code>.</p>
+<p>比如我们在项目目录下创建配置文件<code>.commitlintrc.js</code>, 写入:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">module</span>.exports = &#123;</span><br><span class="line">  extends: [</span><br><span class="line">    <span class="string">'@commitlint/config-conventional'</span></span><br><span class="line">  ],</span><br><span class="line">  rules: &#123;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p><strong>结合<code>husky</code></strong>，<code>package.json</code>中添加如下：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// package.json</span></span><br><span class="line">&#123;</span><br><span class="line">  <span class="string">"husky"</span>: &#123;</span><br><span class="line">    <span class="string">"hooks"</span>: &#123;</span><br><span class="line">      <span class="string">"commit-msg"</span>: <span class="string">"commitlint -E HUSKY_GIT_PARAMS"</span></span><br><span class="line">    &#125;  </span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>Passing husky’s <code>HUSKY_GIT_PARAMS</code> to commitlint via the <code>-E</code>|<code>--env</code> flag directs it to the relevant edit file. <code>-e</code> would default to <code>.git/COMMIT_EDITMSG</code>.</p>
+<h2 id="Message辅助填写"><a href="#Message辅助填写" class="headerlink" title="Message辅助填写"></a>Message辅助填写</h2><p><a href="https://zhuanlan.zhihu.com/p/34223150" target="_blank" rel="noopener">优雅的提交你的 Git Commit Message</a></p>
+<h3 id="Commitizen-替代你的-git-commit"><a href="#Commitizen-替代你的-git-commit" class="headerlink" title="Commitizen: 替代你的 git commit"></a>Commitizen: 替代你的 git commit</h3><blockquote>
+<p>它提供的 git cz 命令替代我们的 git commit 命令, 帮助我们生成符合规范的 commit message.</p>
+<p>cz-conventional-changelog (一个符合 Angular团队规范的 preset). 使得 commitizen 按照我们指定的规范帮助我们生成 commit message.</p>
+</blockquote>
+<h4 id="全局安装"><a href="#全局安装" class="headerlink" title="全局安装"></a>全局安装</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">npm install -g commitizen cz-conventional-changelog</span><br><span class="line"><span class="built_in">echo</span> <span class="string">'&#123; "path": "cz-conventional-changelog" &#125;'</span> &gt; ~/.czrc <span class="comment">#意思是home目录下新建.czrc文件，内容为&#123; "path": "cz-conventional-changelog" &#125;</span></span><br></pre></td></tr></table></figure>
+<h4 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h4><p>用<code>git cz</code>替代<code>git commit</code>命令即可。</p>
+<h3 id="推荐规范说明"><a href="#推荐规范说明" class="headerlink" title="推荐规范说明"></a>推荐规范说明</h3><p>目前规范使用较多的是 <a href="https://github.com/angular/angular.js/blob/master/DEVELOPERS.md#-git-commit-guidelines" target="_blank" rel="noopener">Angular 团队的规范</a>, 继而衍生了<a href="https://conventionalcommits.org/" target="_blank" rel="noopener">Conventional Commits specification</a>. 很多工具也是基于此规范, 它的<code>message</code>格式如下:</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">type</span>&gt;</span>(<span class="tag">&lt;<span class="name">scope</span>&gt;</span>): <span class="tag">&lt;<span class="name">subject</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">BLANK</span> <span class="attr">LINE</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">BLANK</span> <span class="attr">LINE</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">footer</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>通过 <code>git commit</code> 命令带出的 <code>vim</code> 界面填写的最终结果应该类似如上这个结构, 大致分为三个部分(使用空行分割):</p>
+<p><strong>标题行</strong>: 必填, 描述主要修改类型和内容</p>
+<p><strong>主题内容</strong>: 描述为什么修改, 做了什么样的修改, 以及开发的思路等等</p>
+<p><strong>页脚注释</strong>: 放 <code>Breaking Changes</code> 或 <code>Closed Issues</code></p>
+<p>分别由如下部分构成:</p>
+<blockquote>
+<p><code>type</code>: commit 的类型</p>
+<p><code>feat</code>: 新特性</p>
+<p><code>fix</code>: 修改问题</p>
+<p><code>refactor</code>: 代码重构</p>
+<p><code>docs</code>: 文档修改</p>
+<p><code>style</code>: 代码格式修改, 注意不是 css 修改</p>
+<p><code>test</code>: 测试用例修改</p>
+<p><code>chore</code>: 其他修改, 比如构建流程, 依赖管理.</p>
+<p><code>scope</code>: commit 影响的范围, 比如: route, component, utils, build…</p>
+<p><code>subject</code>: commit 的概述, 建议符合 50/72 formatting</p>
+<p><code>body</code>: commit 具体修改内容, 可以分为多行, 建议符合 50/72 formatting</p>
+<p><code>footer</code>: 一些备注, 通常是 BREAKING CHANGE 或修复的 bug 的链接.</p>
+</blockquote>
+<p>这样一个符合规范的 <code>commit message</code>, 就好像是一份邮件。</p>
+<h2 id="拓展阅读1：自定义校验规则、辅助规则"><a href="#拓展阅读1：自定义校验规则、辅助规则" class="headerlink" title="拓展阅读1：自定义校验规则、辅助规则"></a>拓展阅读1：自定义校验规则、辅助规则</h2><blockquote>
+<p>也许 Angular 的那套规范我们不习惯, 那么可以通过指定 Adapter <a href="https://github.com/leonardoanalista/cz-customizable" target="_blank" rel="noopener">cz-customizable</a> 指定一套符合自己团队的规范.</p>
+</blockquote>
+<h3 id="安装-2"><a href="#安装-2" class="headerlink" title="安装"></a>安装</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">npm i -g cz-customizable</span><br><span class="line"><span class="comment">#or</span></span><br><span class="line">npm i -D cz-customizable</span><br></pre></td></tr></table></figure>
+<h3 id="修改-czrc-或-package-json"><a href="#修改-czrc-或-package-json" class="headerlink" title="修改 .czrc 或 package.json"></a>修改 .czrc 或 package.json</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// .czrc</span></span><br><span class="line">&#123; <span class="string">"path"</span>: <span class="string">"cz-customizable"</span> &#125;</span><br><span class="line"><span class="comment">// 或者</span></span><br><span class="line"><span class="comment">// package.json</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="string">"config"</span>: &#123;</span><br><span class="line">    <span class="string">"commitizen"</span>: &#123;</span><br><span class="line">        <span class="string">"path"</span>: <span class="string">"node_modules/cz-customizable"</span></span><br><span class="line">    &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="自定义规则"><a href="#自定义规则" class="headerlink" title="自定义规则"></a>自定义规则</h3><p>在<code>~/</code> 或项目根目录下创建 <code>.cz-config.js</code> 文件, 维护你想要的格式，比如: <a href="https://gist.github.com/leohxj/7bc928f60bfa46a3856ddf7c0f91ab98" target="_blank" rel="noopener">leohxj/.cz-config</a></p>
+<h3 id="对自定义规则的校验"><a href="#对自定义规则的校验" class="headerlink" title="对自定义规则的校验"></a>对自定义规则的校验</h3><p>如果你使用的是自定义的 <code>commitizen adapter</code>, 那么你需要修改<code>commitlint</code>的校验配置为<code>commitlint-config-cz</code></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm i -D commitlint-config-cz</span><br></pre></td></tr></table></figure>
+<p><code>.commitlintrc.js</code>修改为:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">module</span>.exports = &#123;</span><br><span class="line">  extends: [</span><br><span class="line">    <span class="string">'cz'</span></span><br><span class="line">  ],</span><br><span class="line">  rules: &#123;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h2 id="拓展阅读2：standard-version-自动生成-CHANGELOG"><a href="#拓展阅读2：standard-version-自动生成-CHANGELOG" class="headerlink" title="拓展阅读2：standard-version 自动生成 CHANGELOG"></a>拓展阅读2：standard-version 自动生成 CHANGELOG</h2><p>通过以上工具的帮助, 我们的工程 commit message 应该是符合 Angular团队那套, 这样也便于我们借助 <a href="https://github.com/conventional-changelog/standard-version" target="_blank" rel="noopener">standard-version</a> 这样的工具, 自动生成 CHANGELOG, 甚至是 语义化的版本号(<a href="https://semver.org/lang/zh-CN/" target="_blank" rel="noopener">Semantic Version</a>).</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/githook-husky/" rel="tag"># githook husky</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/12/03/-centos-联网设置/" rel="next" title="Centos联网设置">
+                <i class="fa fa-chevron-left"></i> Centos联网设置
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">heguichuan</p>
+              <p class="site-description motion-element" itemprop="description">he's personal blog</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">15</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">8</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Branch校验"><span class="nav-number">1.</span> <span class="nav-text"><a href="#Branch&#x6821;&#x9A8C;" class="headerlink" title="Branch&#x6821;&#x9A8C;"></a>Branch&#x6821;&#x9A8C;</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#安装"><span class="nav-number">1.1.</span> <span class="nav-text"><a href="#&#x5B89;&#x88C5;" class="headerlink" title="&#x5B89;&#x88C5;"></a>&#x5B89;&#x88C5;</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#配置"><span class="nav-number">1.2.</span> <span class="nav-text"><a href="#&#x914D;&#x7F6E;" class="headerlink" title="&#x914D;&#x7F6E;"></a>&#x914D;&#x7F6E;</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Message校验"><span class="nav-number">2.</span> <span class="nav-text"><a href="#Message&#x6821;&#x9A8C;" class="headerlink" title="Message&#x6821;&#x9A8C;"></a>Message&#x6821;&#x9A8C;</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#安装-1"><span class="nav-number">2.1.</span> <span class="nav-text"><a href="#&#x5B89;&#x88C5;-1" class="headerlink" title="&#x5B89;&#x88C5;"></a>&#x5B89;&#x88C5;</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#配置-1"><span class="nav-number">2.2.</span> <span class="nav-text"><a href="#&#x914D;&#x7F6E;-1" class="headerlink" title="&#x914D;&#x7F6E;"></a>&#x914D;&#x7F6E;</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Message辅助填写"><span class="nav-number">3.</span> <span class="nav-text"><a href="#Message&#x8F85;&#x52A9;&#x586B;&#x5199;" class="headerlink" title="Message&#x8F85;&#x52A9;&#x586B;&#x5199;"></a>Message&#x8F85;&#x52A9;&#x586B;&#x5199;</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Commitizen-替代你的-git-commit"><span class="nav-number">3.1.</span> <span class="nav-text"><a href="#Commitizen-&#x66FF;&#x4EE3;&#x4F60;&#x7684;-git-commit" class="headerlink" title="Commitizen: &#x66FF;&#x4EE3;&#x4F60;&#x7684; git commit"></a>Commitizen: &#x66FF;&#x4EE3;&#x4F60;&#x7684; git commit</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#全局安装"><span class="nav-number">3.1.1.</span> <span class="nav-text"><a href="#&#x5168;&#x5C40;&#x5B89;&#x88C5;" class="headerlink" title="&#x5168;&#x5C40;&#x5B89;&#x88C5;"></a>&#x5168;&#x5C40;&#x5B89;&#x88C5;</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#使用"><span class="nav-number">3.1.2.</span> <span class="nav-text"><a href="#&#x4F7F;&#x7528;" class="headerlink" title="&#x4F7F;&#x7528;"></a>&#x4F7F;&#x7528;</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#推荐规范说明"><span class="nav-number">3.2.</span> <span class="nav-text"><a href="#&#x63A8;&#x8350;&#x89C4;&#x8303;&#x8BF4;&#x660E;" class="headerlink" title="&#x63A8;&#x8350;&#x89C4;&#x8303;&#x8BF4;&#x660E;"></a>&#x63A8;&#x8350;&#x89C4;&#x8303;&#x8BF4;&#x660E;</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#拓展阅读1：自定义校验规则、辅助规则"><span class="nav-number">4.</span> <span class="nav-text"><a href="#&#x62D3;&#x5C55;&#x9605;&#x8BFB;1&#xFF1A;&#x81EA;&#x5B9A;&#x4E49;&#x6821;&#x9A8C;&#x89C4;&#x5219;&#x3001;&#x8F85;&#x52A9;&#x89C4;&#x5219;" class="headerlink" title="&#x62D3;&#x5C55;&#x9605;&#x8BFB;1&#xFF1A;&#x81EA;&#x5B9A;&#x4E49;&#x6821;&#x9A8C;&#x89C4;&#x5219;&#x3001;&#x8F85;&#x52A9;&#x89C4;&#x5219;"></a>&#x62D3;&#x5C55;&#x9605;&#x8BFB;1&#xFF1A;&#x81EA;&#x5B9A;&#x4E49;&#x6821;&#x9A8C;&#x89C4;&#x5219;&#x3001;&#x8F85;&#x52A9;&#x89C4;&#x5219;</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#安装-2"><span class="nav-number">4.1.</span> <span class="nav-text"><a href="#&#x5B89;&#x88C5;-2" class="headerlink" title="&#x5B89;&#x88C5;"></a>&#x5B89;&#x88C5;</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#修改-czrc-或-package-json"><span class="nav-number">4.2.</span> <span class="nav-text"><a href="#&#x4FEE;&#x6539;-czrc-&#x6216;-package-json" class="headerlink" title="&#x4FEE;&#x6539; .czrc &#x6216; package.json"></a>&#x4FEE;&#x6539; .czrc &#x6216; package.json</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#自定义规则"><span class="nav-number">4.3.</span> <span class="nav-text"><a href="#&#x81EA;&#x5B9A;&#x4E49;&#x89C4;&#x5219;" class="headerlink" title="&#x81EA;&#x5B9A;&#x4E49;&#x89C4;&#x5219;"></a>&#x81EA;&#x5B9A;&#x4E49;&#x89C4;&#x5219;</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#对自定义规则的校验"><span class="nav-number">4.4.</span> <span class="nav-text"><a href="#&#x5BF9;&#x81EA;&#x5B9A;&#x4E49;&#x89C4;&#x5219;&#x7684;&#x6821;&#x9A8C;" class="headerlink" title="&#x5BF9;&#x81EA;&#x5B9A;&#x4E49;&#x89C4;&#x5219;&#x7684;&#x6821;&#x9A8C;"></a>&#x5BF9;&#x81EA;&#x5B9A;&#x4E49;&#x89C4;&#x5219;&#x7684;&#x6821;&#x9A8C;</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#拓展阅读2：standard-version-自动生成-CHANGELOG"><span class="nav-number">5.</span> <span class="nav-text"><a href="#&#x62D3;&#x5C55;&#x9605;&#x8BFB;2&#xFF1A;standard-version-&#x81EA;&#x52A8;&#x751F;&#x6210;-CHANGELOG" class="headerlink" title="&#x62D3;&#x5C55;&#x9605;&#x8BFB;2&#xFF1A;standard-version &#x81EA;&#x52A8;&#x751F;&#x6210; CHANGELOG"></a>&#x62D3;&#x5C55;&#x9605;&#x8BFB;2&#xFF1A;standard-version &#x81EA;&#x52A8;&#x751F;&#x6210; CHANGELOG</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">heguichuan</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
